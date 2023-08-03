@@ -1,10 +1,8 @@
-type Props = {};
-
 import { GrSun } from "react-icons/gr";
 import { RiMoonClearLine } from "react-icons/ri";
 import { BsGithub } from "react-icons/bs";
 
-const Header = (props: Props) => {
+const Header = () => {
   return (
     <div className='navbar bg-base-100'>
       <div className='navbar-start'></div>
@@ -16,7 +14,7 @@ const Header = (props: Props) => {
           className='btn btn-ghost btn-circle'
           href='https://github.com/Shuhua-L/READMEXpress'
           target='__blank'>
-          <BsGithub className='swap-on fill-current w-5 h-5' />
+          <BsGithub className='fill-current w-5 h-5' />
         </a>
         <label className='btn btn-ghost btn-circle swap swap-rotate'>
           {/* this hidden checkbox controls the state */}

@@ -1,17 +1,18 @@
-
-
+<div align="center">
+  <a href="https://github.com/github_username/repo_name">
+    <img src="public/logo.png" alt="READMEXpress Logo" width="100" height="100">
+  </a>
 <h2 align="center">READMEXpress</h2>
 <p align="center">
   An easy-to-use README generator.
-</p>
-
-
-<p align="center">
+  </p>
+  <p align="center">
   <a href="#about"><strong>About</strong></a> ·
   <a href="#tech-stack"><strong>Tech Stack</strong></a> ·
   <a href="#roadmap"><strong>Roadmap</strong></a> ·
   <a href="#license"><strong>License</strong></a>
 </p>
+</div>
 <br/>
 
 ### About
@@ -21,6 +22,7 @@ READMEXpress is a user-centered frontend web application designed to streamline 
 <br />
 
 ### Tech Stack
+
 <div>
 <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB"/>
 <img src="https://img.shields.io/badge/tailwindcss-38bdf8?style=for-the-badge&logo=tailwindcss&logoColor=white">
@@ -28,14 +30,13 @@ READMEXpress is a user-centered frontend web application designed to streamline 
 <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white"/>
 </div>
 
-
 <br />
 
 ### Roadmap
 
 - [ ] Real-time Markdown Preview
 - [ ] Essential README sections
-    - [ ] Headers, Technologies, Download, License, etc
+  - [ ] Headers, Technologies, Download, License, etc
 - [ ] One-Click Copy/Download
 - [ ] Customizable Templates
 

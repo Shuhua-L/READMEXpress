@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://github.com/Shuhua-L/READMEXpress">
     <img src="public/logo.png" alt="READMEXpress Logo" width="200" height="auto">
   </a>
 <h2 align="center">READMEXpress</h2>

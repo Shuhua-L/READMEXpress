@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/github_username/repo_name">
-    <img src="public/logo.png" alt="READMEXpress Logo" width="100" height="100">
+    <img src="public/logo.png" alt="READMEXpress Logo" width="200" height="auto">
   </a>
 <h2 align="center">READMEXpress</h2>
 <p align="center">

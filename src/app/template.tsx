@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import NavBar from "@/components/NavBar";
 
 export default function Template({ children }: { children: React.ReactNode }) {
   return (
@@ -6,7 +6,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
       <input id='my-drawer-menu' type='checkbox' className='drawer-toggle' />
       <div className='drawer-content flex flex-col h-screen'>
         {/* Page content here */}
-        <Header />
+        <NavBar />
         {children}
       </div>
       <div className='drawer-side z-10'>

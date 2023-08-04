@@ -3,7 +3,7 @@ import { RiMoonClearLine } from "react-icons/ri";
 import { BsGithub } from "react-icons/bs";
 import { VscSettings } from "react-icons/vsc";
 
-const Header = () => {
+const NavBar = () => {
   return (
     <div className='navbar bg-base-100'>
       <div className='navbar-start'>
@@ -35,4 +35,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default NavBar;

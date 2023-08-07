@@ -4,7 +4,10 @@ import Header from "./Header";
 import About from "./About";
 import GettingStarted from "./GettingStarted";
 
-type Props = {};
+type Props = {
+  document: string;
+  updateDocument: (doc: string) => void;
+};
 
 const InputForms = (props: Props) => {
   const [activeTab, SetActiveTab] = useState("");
@@ -22,7 +25,7 @@ const InputForms = (props: Props) => {
 
   return (
     <div>
-      <Header />
+      <Header updateDocument={props.updateDocument} />
       <About />
       <GettingStarted />
     </div>

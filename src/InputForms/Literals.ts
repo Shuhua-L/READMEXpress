@@ -27,3 +27,13 @@ ${catchPhrase}
 </p>
 </div>`;
 }
+
+type TAboutTemplate = {
+  description: string;
+}
+
+export const AboutTemplate = ({description}: TAboutTemplate) => {
+  return `
+## About
+${description}`
+}

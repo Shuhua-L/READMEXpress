@@ -12,10 +12,10 @@ export default function Home() {
   Man, imagine how *annoying* it would be to have to write **all** of
   this using HTML tags`;
 
-  const [document, setDocument] = useState(str);
+  const [document, setDocument] = useState([str]);
 
   const updateDocument = (doc: string) => {
-    setDocument(doc);
+    setDocument([...document, doc]);
   };
 
   return (
@@ -25,7 +25,7 @@ export default function Home() {
       </div>
       <div className='bg-accent-focus w-4/5 mx-auto md:w-1/2 mb-4'>
         <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]} className='prose'>
-          {document}
+          {document.join("")}
         </ReactMarkdown>
       </div>
     </div>

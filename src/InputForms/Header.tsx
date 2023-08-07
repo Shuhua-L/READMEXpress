@@ -23,7 +23,7 @@ const Header = (props: Props) => {
     <div className='collapse collapse-arrow bg-base-200'>
       {/* <input type='radio' name='current-document' /> */}
       <input type='checkbox' />
-      <div className='collapse-title text-xl font-medium'>(Start )</div>
+      <div className='collapse-title text-xl font-medium'>(Start Here)</div>
       <div className='collapse-content bg-neutral-content'>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 p-4'>
           <input

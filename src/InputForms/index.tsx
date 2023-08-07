@@ -5,7 +5,7 @@ import About from "./About";
 import GettingStarted from "./GettingStarted";
 
 type Props = {
-  document: string;
+  document: string[];
   updateDocument: (doc: string) => void;
 };
 
@@ -26,7 +26,7 @@ const InputForms = (props: Props) => {
   return (
     <div>
       <Header updateDocument={props.updateDocument} />
-      <About />
+      <About updateDocument={props.updateDocument} />
       <GettingStarted />
     </div>
   );

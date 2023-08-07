@@ -4,7 +4,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
   return (
     <main className='drawer xl:drawer-open'>
       <input id='my-drawer-menu' type='checkbox' className='drawer-toggle' />
-      <div className='drawer-content flex flex-col h-screen'>
+      <div className='drawer-content flex flex-col h-screen w-screen max-h-screen max-w-screen'>
         {/* Page content here */}
         <NavBar />
         {children}

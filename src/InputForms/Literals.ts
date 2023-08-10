@@ -1,13 +1,16 @@
 
 type THeaderTemplate = {
-  projectTitle:string,
-  catchPhrase:string,
-  logoURL:string
+  githubHandler: string;
+  repository: string;
+  projectTitle: string;
+  catchPhrase: string;
+  logoURL: string;
 }
 
-export const HeaderTemplate = ({projectTitle, catchPhrase, logoURL} : THeaderTemplate)  => {
+export const HeaderTemplate = (props : THeaderTemplate)  => {
+  const {projectTitle, catchPhrase, logoURL, githubHandler, repository} = props
   const projectLogo = logoURL.length > 0 ?
-  `<a href="https://github.com/github_username/repo_name">
+  `<a href="https://github.com/${githubHandler}/${repository}">
   <img src=${logoURL} alt="Logo" width="80" height="80">
   </a>`
   : ''
@@ -18,12 +21,12 @@ ${projectLogo}
 <p align="center">
 ${catchPhrase}
 <br />
-<a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+<a href="https://github.com/${githubHandler}/${repository}"><strong>Explore the docs »</strong></a>
 <br />
 <br />
-<a href="https://github.com/github_username/repo_name">View Demo</a>·
-<a href="https://github.com/github_username/repo_name/issues">Report Bug</a>·
-<a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
+<a href="https://github.com/${githubHandler}/${repository}">View Demo</a>·
+<a href="https://github.com/${githubHandler}/${repository}/issues">Report Bug</a>·
+<a href="https://github.com/${githubHandler}/${repository}/issues">Request Feature</a>
 </p>
 </div>`;
 }

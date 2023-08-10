@@ -1,7 +1,10 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { HeaderTemplate } from "./Literals";
+import { Input } from "./MyComponents";
 
 interface IFormInput {
+  githubHandler: string;
+  repository: string;
   projectTitle: string;
   catchPhrase: string;
   logoURL: string;
@@ -21,26 +24,49 @@ const Header = (props: Props) => {
 
   return (
     <div className='collapse collapse-arrow bg-base-200'>
-      {/* <input type='radio' name='current-document' /> */}
       <input type='checkbox' />
       <div className='collapse-title text-xl font-medium'>(Start Here)</div>
       <div className='collapse-content bg-neutral-content'>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 p-4'>
-          <input
-            {...register("projectTitle", { required: true, maxLength: 50 })}
+          <Input
+            {...register("githubHandler", { required: true, maxLength: 50 })}
+            name='githubHandler'
+            label='Github Username'
+            placeholder='Github Username'
+            required={true}
+          />
+          <Input
+            {...register("repository", { required: true })}
+            name='repository'
+            label='Repository Name'
+            placeholder='Repository Name'
+            required={true}
+          />
+
+          <Input
+            {...register("projectTitle", { required: true })}
+            name='projectTitle'
+            label='Project Title'
             placeholder='Project Title'
-            className='input w-full '
+            required={true}
           />
-          <input
+
+          <Input
             {...register("catchPhrase")}
+            name='catchPhrase'
+            label='Catch Phrase or Short Description'
             placeholder='Catch phrase or description (optional)'
-            className='input w-full '
+            required={false}
           />
-          <input
+
+          <Input
             {...register("logoURL")}
+            name='logoURL'
+            label='Project Logo'
             placeholder='Enter an image url (optional)'
-            className='input w-full '
+            required={false}
           />
+
           <button type='submit' className='btn btn-wide mx-auto'>
             Save
           </button>

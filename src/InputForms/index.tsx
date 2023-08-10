@@ -27,7 +27,7 @@ const InputForms = (props: Props) => {
     <div>
       <Header updateDocument={props.updateDocument} />
       <About updateDocument={props.updateDocument} />
-      <GettingStarted />
+      <GettingStarted updateDocument={props.updateDocument} />
     </div>
   );
 };

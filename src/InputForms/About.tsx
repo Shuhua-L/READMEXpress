@@ -35,7 +35,7 @@ const About = (props: Props) => {
           <TextArea
             {...register("description")}
             name='description'
-            label='description'
+            label='Description'
             required={false}
             placeholder='Write about 1-2 paragraphs describing the purpose of your project.'
           />

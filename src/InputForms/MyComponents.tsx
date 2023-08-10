@@ -1,5 +1,10 @@
 /* eslint-disable react/display-name */
-import { InputHTMLAttributes, forwardRef } from "react";
+import {
+  ButtonHTMLAttributes,
+  InputHTMLAttributes,
+  TextareaHTMLAttributes,
+  forwardRef,
+} from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -29,6 +34,54 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
           className={`input w-full ${className}`}
         />
       </label>
+    </>
+  );
+});
+
+interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  name: string;
+  label: string;
+  placeholder: string;
+  required: boolean;
+  className?: string;
+}
+
+export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => {
+  const { name, label, placeholder, required, className, ...rest } = props;
+
+  return (
+    <>
+      <label className='block' htmlFor={name}>
+        <span
+          className={`label-text ${
+            required ? "after:content-['*'] after:ml-0.5 after:text-red-500" : ""
+          }`}>
+          {label}
+        </span>
+        <textarea
+          name={name}
+          placeholder={placeholder}
+          {...rest}
+          ref={ref}
+          className={`textarea textarea-bordered w-full ${className}`}
+        />
+      </label>
+    </>
+  );
+});
+
+interface SaveButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  className?: string;
+}
+
+export const SaveButton = forwardRef<HTMLButtonElement, SaveButtonProps>((props, ref) => {
+  const { className, ...rest } = props;
+
+  return (
+    <>
+      <button type='submit' className={`btn btn-wide mx-auto ${className}`} {...rest} ref={ref}>
+        Save
+      </button>
     </>
   );
 });

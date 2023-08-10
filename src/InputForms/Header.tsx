@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { HeaderTemplate } from "./Literals";
-import { Input } from "./MyComponents";
+import { Input, SaveButton } from "./MyComponents";
 
 interface IFormInput {
   githubHandler: string;
@@ -67,9 +67,7 @@ const Header = (props: Props) => {
             required={false}
           />
 
-          <button type='submit' className='btn btn-wide mx-auto'>
-            Save
-          </button>
+          <SaveButton />
         </form>
       </div>
     </div>

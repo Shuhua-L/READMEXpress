@@ -15,7 +15,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-  const { name, label, placeholder, required, className, ...rest } = props;
+  const { name, label, placeholder, required, className = "", ...rest } = props;
 
   return (
     <>
@@ -47,7 +47,7 @@ interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 }
 
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => {
-  const { name, label, placeholder, required, className, ...rest } = props;
+  const { name, label, placeholder, required, className = "", ...rest } = props;
 
   return (
     <>
@@ -75,7 +75,7 @@ interface SaveButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const SaveButton = forwardRef<HTMLButtonElement, SaveButtonProps>((props, ref) => {
-  const { className, ...rest } = props;
+  const { className = "", ...rest } = props;
 
   return (
     <>

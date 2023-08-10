@@ -20,10 +20,10 @@ export default function Home() {
 
   return (
     <div className='px-4 gap-4 md:flex flex-auto'>
-      <div className='bg-neutral-content w-4/5 mx-auto md:w-1/2 mb-4'>
+      <div className='bg-neutral-content md:w-1/2 mb-[1vh] max-h-[92vh] min-h-[45vh] md:overflow-y-scroll'>
         <InputForms document={document} updateDocument={updateDocument} />
       </div>
-      <div className='bg-accent-focus w-4/5 mx-auto md:w-1/2 mb-4'>
+      <div className='bg-accent-focus md:w-1/2 mb-[1vh] max-h-[92vh] min-h-[45vh] md:overflow-y-scroll'>
         <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]} className='prose'>
           {document.join("")}
         </ReactMarkdown>

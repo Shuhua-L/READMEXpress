@@ -1,7 +1,8 @@
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
 import { TextArea, Input, SaveButton } from "./MyComponents";
 import { HeaderTemplate } from "./Literals";
-import { MdDeleteForever } from "react-icons/md";
+import { MdDeleteForever, MdAddCircle } from "react-icons/md";
+import { BiSolidAddToQueue } from "react-icons/bi";
 
 type Props = {
   updateDocument: (doc: string) => void;
@@ -64,37 +65,39 @@ const GettingStarted = (props: Props) => {
             placeholder='This is an example of how to list things you need to use the software and how to install them.'
           />
 
-          <h5>Installation Steps</h5>
+          <div className='inline-flex'>
+            <h5>Installation Steps</h5>
+            <span
+              className='btn btn-xs btn-ghost'
+              onClick={() =>
+                append({
+                  step: "step",
+                  code: "code for step",
+                })
+              }>
+              <BiSolidAddToQueue className='h-5 w-auto' />
+            </span>
+          </div>
           {fields.map((field, index) => {
             return (
               <span className='label-text block' key={field.id}>
                 Step {index + 1}
-                <div className='join max-w-sm'>
+                <div className='join w-full'>
                   <input
-                    className='input-sm input-bordered join-item'
+                    className='input-sm input-bordered join-item w-1/2'
                     placeholder='Installation Step'
                     {...register(`steps.${index}.step` as const)}
                   />
-                  <input className='kbd border-none join-item' placeholder='Code for step' />
-                  <span className='badge join-item h-8' onClick={() => remove(index)}>
-                    <MdDeleteForever className='fill-current w-5 h-5' />
+                  <input className='kbd border-none join-item w-5/12' placeholder='Code for step' />
+                  <span
+                    className='btn btn-sm bg-base-100 join-item h-8'
+                    onClick={() => remove(index)}>
+                    <MdDeleteForever className='fill-current h-6 w-auto' />
                   </span>
                 </div>
               </span>
             );
           })}
-
-          <button
-            type='button'
-            className='btn btn-sm'
-            onClick={() =>
-              append({
-                step: "step",
-                code: "code for step",
-              })
-            }>
-            APPEND
-          </button>
 
           <SaveButton />
         </form>

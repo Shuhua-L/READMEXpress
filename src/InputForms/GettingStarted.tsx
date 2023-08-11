@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
-import { TextArea, Input, SaveButton } from "./MyComponents";
+import { TextArea, SaveButton } from "./MyComponents";
 import { DownloadTemplate } from "./Literals";
-import { MdDeleteForever, MdAddCircle } from "react-icons/md";
+import { MdDeleteForever } from "react-icons/md";
 import { BiSolidAddToQueue } from "react-icons/bi";
 
 type Props = {
@@ -48,7 +48,6 @@ const GettingStarted = (props: Props) => {
   };
   return (
     <div className='collapse collapse-arrow bg-base-200'>
-      {/* <input type='radio' name='current-document' /> */}
       <input type='checkbox' />
       <div className='collapse-title text-lg font-medium'>Getting Started</div>
       <div className='collapse-content bg-neutral-content'>

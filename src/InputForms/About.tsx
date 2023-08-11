@@ -1,4 +1,4 @@
-import { useForm, useController, UseControllerProps } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { AboutTemplate } from "./Literals";
 import { SaveButton, TextArea } from "./MyComponents";
 
@@ -11,7 +11,7 @@ type FormValues = {
 };
 
 const About = (props: Props) => {
-  const { handleSubmit, control, getValues, register, watch } = useForm<FormValues>({
+  const { handleSubmit, register } = useForm<FormValues>({
     defaultValues: {
       description: `This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.`,
@@ -20,15 +20,12 @@ To get a local copy up and running follow these simple example steps.`,
   });
   const onSubmit = (data: FormValues) => {
     let literal = AboutTemplate(data);
-    console.log(literal);
+    // console.log(literal);
     props.updateDocument(literal);
   };
 
-  const textInput = watch("description");
-
   return (
     <div className='collapse collapse-arrow bg-base-200'>
-      {/* <input type='radio' name='current-document' /> */}
       <input type='checkbox' />
       <div className='collapse-title text-lg font-medium'>About</div>
       <div className='collapse-content bg-neutral-content'>

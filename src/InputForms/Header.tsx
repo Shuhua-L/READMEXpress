@@ -2,14 +2,6 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { HeaderTemplate } from "./Literals";
 import { Input, SaveButton } from "./MyComponents";
 
-// interface IFormInput {
-//   githubHandler: string;
-//   repository: string;
-//   projectTitle: string;
-//   catchPhrase: string;
-//   logoURL: string;
-// }
-
 type THeaderTemplate = {
   githubHandler: string;
   repository: string;

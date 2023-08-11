@@ -85,3 +85,30 @@ export const SaveButton = forwardRef<HTMLButtonElement, SaveButtonProps>((props,
     </>
   );
 });
+
+interface CodeProps extends InputHTMLAttributes<HTMLInputElement> {
+  name: string;
+  label: string;
+  placeholder: string;
+  className?: string;
+}
+
+export const CodeInput = forwardRef<HTMLInputElement, CodeProps>((props, ref) => {
+  const { name, label, placeholder, className = "", ...rest } = props;
+
+  return (
+    <>
+      <label className='block'>
+        <span className='label-text'>{label}</span>
+        <input
+          name={name}
+          placeholder={placeholder}
+          {...rest}
+          ref={ref}
+          className={`input input-sm kbd w-full ${className}`}
+          spellCheck={false}
+        />
+      </label>
+    </>
+  );
+});

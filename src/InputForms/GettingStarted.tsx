@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
-import { TextArea, SaveButton } from "./MyComponents";
+import { TextArea, SaveButton, CodeInput } from "./MyComponents";
 import { DownloadTemplate } from "./Literals";
 import { MdDeleteForever } from "react-icons/md";
 import { BiSolidAddToQueue } from "react-icons/bi";
@@ -43,7 +43,7 @@ const GettingStarted = (props: Props) => {
   });
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     let literal = DownloadTemplate(data);
-    console.log(literal);
+    // console.log(literal);
     props.updateDocument(literal);
   };
   return (
@@ -65,18 +65,15 @@ const GettingStarted = (props: Props) => {
             name='preDescription'
             label='Prerequisites Description'
             required={false}
-            placeholder='This is an example of how to list things you need to use the software and how to install them.'
+            placeholder='What things you need to install the software and how to install them.'
           />
 
-          <label className='block'>
-            <span className={`label-text `}>Prerequisites Code</span>
-            <input
-              {...register("preCode")}
-              placeholder='Prerequisites Code'
-              className={`input input-sm kbd w-full`}
-              spellCheck={false}
-            />
-          </label>
+          <CodeInput
+            {...register("preCode")}
+            name='preCode'
+            label='Prerequisites Code'
+            placeholder='Give examples'
+          />
 
           <div className='block'>
             <h4 className='inline-block'>Installation Steps</h4>

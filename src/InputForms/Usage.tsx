@@ -11,26 +11,24 @@ type FormValues = {
   description: string;
 };
 
-const About = (props: Props) => {
+const Usage = (props: Props) => {
   const { handleSubmit, register } = useForm<FormValues>({
     defaultValues: {
-      description: `This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.`,
+      description:
+        "Use this space to tell a little more about your project and how it can be used. Show additional screenshots, code samples, demos or link to other resources. ",
     },
-    mode: "onChange",
   });
   const onSubmit = (data: FormValues) => {
     let tem: TBasicTemplate = data;
-    tem["title"] = "About";
+    tem["title"] = "Usage";
     let literal = BasicTemplate(tem);
-    // console.log(literal);
     props.updateDocument(literal);
   };
 
   return (
     <div className='collapse collapse-arrow bg-base-200'>
       <input type='checkbox' />
-      <div className='collapse-title text-lg font-medium'>About</div>
+      <div className='collapse-title text-lg font-medium'>Usage</div>
       <div className='collapse-content bg-neutral-content'>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 py-4 px-2'>
           <TextArea
@@ -38,7 +36,7 @@ To get a local copy up and running follow these simple example steps.`,
             name='description'
             label='Description'
             required={false}
-            placeholder='Write about 1-2 paragraphs describing the purpose of your project.'
+            placeholder='Add notes about how to use the system.'
           />
           <SaveButton />
         </form>
@@ -47,4 +45,4 @@ To get a local copy up and running follow these simple example steps.`,
   );
 };
 
-export default About;
+export default Usage;

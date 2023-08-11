@@ -3,6 +3,8 @@ import { ChangeEvent, ChangeEventHandler, MouseEventHandler, useState } from "re
 import Header from "./Header";
 import About from "./About";
 import GettingStarted from "./GettingStarted";
+import Usage from "./Usage";
+import Contributing from "./Contributing";
 
 type Props = {
   document: string[];
@@ -28,6 +30,8 @@ const InputForms = (props: Props) => {
       <Header updateDocument={props.updateDocument} />
       <About updateDocument={props.updateDocument} />
       <GettingStarted updateDocument={props.updateDocument} />
+      <Usage updateDocument={props.updateDocument} />
+      <Contributing updateDocument={props.updateDocument} />
     </div>
   );
 };

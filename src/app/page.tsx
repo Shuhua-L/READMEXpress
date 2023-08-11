@@ -12,13 +12,14 @@ export default function Home() {
   Man, imagine how *annoying* it would be to have to write **all** of
   this using HTML tags`;
 
-  const [document, setDocument] = useState([str]);
+  const [document, setDocument] = useState([""]);
 
   const updateDocument = (doc: string) => {
     setDocument([...document, doc]);
   };
 
-  // console.log(document.join("\n"));
+  console.log(document.join("\n"));
+
   return (
     <div className='px-4 gap-4 md:flex flex-auto'>
       <div className='bg-neutral-content md:w-1/2 mb-[1vh] max-h-[92vh] min-h-[45vh] md:overflow-y-scroll'>

@@ -33,13 +33,14 @@ ${catchPhrase}
 `;
 }
 
-type TAboutTemplate = {
+export type TBasicTemplate = {
+  title?: string;
   description: string;
 }
 
-export const AboutTemplate = ({description}: TAboutTemplate) => {
+export const BasicTemplate = ({title = "", description}: TBasicTemplate) => {
   return `
-## About the Project
+## ${title}
 
 ${description}
 `;

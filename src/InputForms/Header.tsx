@@ -25,7 +25,7 @@ const Header = (props: Props) => {
   });
   const onSubmit: SubmitHandler<THeaderTemplate> = (data) => {
     let literal = HeaderTemplate(data);
-    console.log(literal);
+    // console.log(literal);
     props.updateDocument(literal);
   };
 

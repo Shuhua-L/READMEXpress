@@ -13,7 +13,8 @@ type FormValues = {
 const About = (props: Props) => {
   const { handleSubmit, control, getValues, register, watch } = useForm<FormValues>({
     defaultValues: {
-      description: "",
+      description: `This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.`,
     },
     mode: "onChange",
   });
@@ -29,9 +30,9 @@ const About = (props: Props) => {
     <div className='collapse collapse-arrow bg-base-200'>
       {/* <input type='radio' name='current-document' /> */}
       <input type='checkbox' />
-      <div className='collapse-title text-xl font-medium'>About</div>
+      <div className='collapse-title text-lg font-medium'>About</div>
       <div className='collapse-content bg-neutral-content'>
-        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 p-4'>
+        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 py-4 px-2'>
           <TextArea
             {...register("description")}
             name='description'

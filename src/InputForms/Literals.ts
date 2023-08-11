@@ -15,7 +15,8 @@ export const HeaderTemplate = (props : THeaderTemplate)  => {
   </a>`
   : ''
 
-  return `<div align="center">
+  return `
+<div align="center">
 ${projectLogo}
 <h3 align="center">${projectTitle}</h3>
 <p align="center">
@@ -28,7 +29,8 @@ ${catchPhrase}
 <a href="https://github.com/${githubHandler}/${repository}/issues">Report Bug</a>·
 <a href="https://github.com/${githubHandler}/${repository}/issues">Request Feature</a>
 </p>
-</div>`;
+</div>
+`;
 }
 
 type TAboutTemplate = {
@@ -37,6 +39,45 @@ type TAboutTemplate = {
 
 export const AboutTemplate = ({description}: TAboutTemplate) => {
   return `
-## About
-${description}`
+## About the Project
+
+${description}
+`;
+}
+
+type TDownloadTemplate = {
+  description: string;
+  preDescription: string;
+  preCode: string;
+  steps: {
+    step: string;
+    code: string;
+  }[];
+}
+
+export const DownloadTemplate = (props: TDownloadTemplate) => {
+  const {description, preDescription, preCode, steps } = props;
+
+  let str = `
+## Getting Started
+
+${description}
+
+### Prerequisites
+
+${preDescription}
+\`\`\`bash
+${preCode}
+\`\`\`
+`;
+
+  steps.forEach((curr, idx) => {
+    str += `
+${idx + 1}. ${curr.step}
+  \`\`\`bash
+  ${curr.code}
+  \`\`\`
+    `;
+  })
+  return str;
 }

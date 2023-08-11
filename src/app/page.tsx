@@ -18,6 +18,7 @@ export default function Home() {
     setDocument([...document, doc]);
   };
 
+  // console.log(document.join("\n"));
   return (
     <div className='px-4 gap-4 md:flex flex-auto'>
       <div className='bg-neutral-content md:w-1/2 mb-[1vh] max-h-[92vh] min-h-[45vh] md:overflow-y-scroll'>
@@ -25,7 +26,7 @@ export default function Home() {
       </div>
       <div className='bg-accent-focus md:w-1/2 mb-[1vh] max-h-[92vh] min-h-[45vh] md:overflow-y-scroll'>
         <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]} className='prose'>
-          {document.join("")}
+          {document.join("\n")}
         </ReactMarkdown>
       </div>
     </div>

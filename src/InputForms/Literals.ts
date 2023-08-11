@@ -1,39 +1,84 @@
 
 type THeaderTemplate = {
-  projectTitle:string,
-  catchPhrase:string,
-  logoURL:string
+  githubHandler: string;
+  repository: string;
+  projectTitle: string;
+  catchPhrase: string;
+  logoURL: string;
 }
 
-export const HeaderTemplate = ({projectTitle, catchPhrase, logoURL} : THeaderTemplate)  => {
+export const HeaderTemplate = (props : THeaderTemplate)  => {
+  const {projectTitle, catchPhrase, logoURL, githubHandler, repository} = props
   const projectLogo = logoURL.length > 0 ?
-  `<a href="https://github.com/github_username/repo_name">
+  `<a href="https://github.com/${githubHandler}/${repository}">
   <img src=${logoURL} alt="Logo" width="80" height="80">
   </a>`
   : ''
 
-  return `<div align="center">
+  return `
+<div align="center">
 ${projectLogo}
 <h3 align="center">${projectTitle}</h3>
 <p align="center">
 ${catchPhrase}
 <br />
-<a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+<a href="https://github.com/${githubHandler}/${repository}"><strong>Explore the docs »</strong></a>
 <br />
 <br />
-<a href="https://github.com/github_username/repo_name">View Demo</a>·
-<a href="https://github.com/github_username/repo_name/issues">Report Bug</a>·
-<a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
+<a href="https://github.com/${githubHandler}/${repository}">View Demo</a>·
+<a href="https://github.com/${githubHandler}/${repository}/issues">Report Bug</a>·
+<a href="https://github.com/${githubHandler}/${repository}/issues">Request Feature</a>
 </p>
-</div>`;
+</div>
+`;
 }
 
-type TAboutTemplate = {
+export type TBasicTemplate = {
+  title?: string;
   description: string;
 }
 
-export const AboutTemplate = ({description}: TAboutTemplate) => {
+export const BasicTemplate = ({title = "", description}: TBasicTemplate) => {
   return `
-## About
-${description}`
+## ${title}
+
+${description}
+`;
+}
+
+type TDownloadTemplate = {
+  description: string;
+  preDescription: string;
+  preCode: string;
+  steps: {
+    step: string;
+    code: string;
+  }[];
+}
+
+export const DownloadTemplate = (props: TDownloadTemplate) => {
+  const {description, preDescription, preCode, steps } = props;
+
+  let str = `
+## Getting Started
+
+${description}
+
+### Prerequisites
+
+${preDescription}
+\`\`\`bash
+${preCode}
+\`\`\`
+`;
+
+  steps.forEach((curr, idx) => {
+    str += `
+${idx + 1}. ${curr.step}
+  \`\`\`bash
+  ${curr.code}
+  \`\`\`
+    `;
+  })
+  return str;
 }

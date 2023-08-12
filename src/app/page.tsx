@@ -18,7 +18,7 @@ export default function Home() {
     setDocument([...document, doc]);
   };
 
-  console.log(document.join("\n"));
+  // console.log(document.join("\n"));
 
   return (
     <div className='px-4 gap-4 md:flex flex-auto'>

@@ -82,7 +82,7 @@ const GettingStarted = (props: Props) => {
               onClick={() =>
                 append({
                   step: "step",
-                  code: "code for step",
+                  code: "code example",
                 })
               }>
               <BiSolidAddToQueue className='h-5 w-auto' />

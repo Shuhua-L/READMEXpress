@@ -8,7 +8,12 @@ export const options = () => {
     toolbar: [
       "bold",
       "italic",
-      "heading-3",
+      {
+        name: "CustomHeading",
+        action: SimpleMDE.toggleHeading3,
+        className: "fa fa-header",
+        title: "Heading",
+      },
       "|",
       "quote",
       "code",

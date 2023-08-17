@@ -1,54 +1,29 @@
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
-import { TextArea, SaveButton, CodeInput } from "./MyComponents";
-import { DownloadTemplate } from "./Literals";
 import { MdDeleteForever } from "react-icons/md";
 import { BiSolidAddToQueue } from "react-icons/bi";
 
-type Props = {
-  updateContent: (doc: string, section: string) => void;
-};
+import { TextArea, SaveButton, CodeInput } from "./MyComponents";
+import { DownloadTemplate } from "./Literals";
+import template from "@/data/template";
+import type { TSectionProps, TDownloadTemplate } from "@/types";
 
-type FormValues = {
-  description: string;
-  preDescription: string;
-  preCode: string;
-  steps: {
-    step: string;
-    code: string;
-  }[];
-};
-
-const GettingStarted = (props: Props) => {
-  const { register, handleSubmit, control } = useForm<FormValues>({
-    defaultValues: {
-      description: "To get a local copy up and running follow these simple example steps.",
-      preDescription: "This project uses NPM as package manager.",
-      preCode: "npm install npm@latest -g",
-      steps: [
-        {
-          step: "Clone the repo",
-          code: "git clone https://github.com/your_username_/Project-Name.git",
-        },
-        {
-          step: "Install NPM packages",
-          code: "npm install",
-        },
-      ],
-    },
+const GettingStarted = ({ section, updateContent }: TSectionProps) => {
+  const { register, handleSubmit, control } = useForm<TDownloadTemplate>({
+    defaultValues: template[section].default,
     mode: "onBlur",
   });
   const { fields, append, remove } = useFieldArray({
     name: "steps",
     control,
   });
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<TDownloadTemplate> = (data) => {
     let literal = DownloadTemplate(data);
-    props.updateContent(literal, "getting-started");
+    updateContent(literal, section);
   };
   return (
     <div className='collapse collapse-arrow bg-base-200'>
       <input type='checkbox' />
-      <div className='collapse-title text-lg font-medium'>Getting Started</div>
+      <div className='collapse-title text-lg font-medium'>{template[section].title}</div>
       <div className='collapse-content bg-neutral-content'>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 py-4 px-2'>
           <TextArea

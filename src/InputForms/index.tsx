@@ -11,11 +11,11 @@ type Props = {
 const InputForms = (props: Props) => {
   return (
     <div>
-      <Header updateContent={props.updateContent} />
-      <About updateContent={props.updateContent} />
-      <GettingStarted updateContent={props.updateContent} />
-      <Usage updateContent={props.updateContent} />
-      <Contributing updateContent={props.updateContent} />
+      <Header updateContent={props.updateContent} section='header' />
+      <About updateContent={props.updateContent} section='about' />
+      <GettingStarted updateContent={props.updateContent} section='getting-started' />
+      <Usage updateContent={props.updateContent} section='usage' />
+      <Contributing updateContent={props.updateContent} section='contributing' />
     </div>
   );
 };

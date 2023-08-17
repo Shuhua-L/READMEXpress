@@ -6,6 +6,8 @@ import {
   forwardRef,
 } from "react";
 
+// import { InputProps } from "@/types";
+
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   label: string;

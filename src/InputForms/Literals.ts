@@ -1,19 +1,13 @@
+import { THeaderTemplate, TBasicLiteral, TDownloadTemplate } from "@/types";
 
-type THeaderTemplate = {
-  githubHandler: string;
-  repository: string;
-  projectTitle: string;
-  catchPhrase: string;
-  logoURL: string;
-}
-
-export const HeaderTemplate = (props : THeaderTemplate)  => {
-  const {projectTitle, catchPhrase, logoURL, githubHandler, repository} = props
-  const projectLogo = logoURL.length > 0 ?
-  `<a href="https://github.com/${githubHandler}/${repository}">
+export const HeaderTemplate = (props: THeaderTemplate) => {
+  const { projectTitle, catchPhrase, logoURL, githubHandler, repository } = props;
+  const projectLogo =
+    logoURL.length > 0
+      ? `<a href="https://github.com/${githubHandler}/${repository}">
   <img src=${logoURL} alt="Logo" width="80" height="80">
   </a>`
-  : ''
+      : "";
 
   return `
 <div align="center">
@@ -31,33 +25,19 @@ ${catchPhrase}
 </p>
 </div>
 `;
-}
+};
 
-export type TBasicTemplate = {
-  title?: string;
-  description: string;
-}
-
-export const BasicTemplate = ({title = "", description}: TBasicTemplate) => {
+export const BasicLiteral = (props: TBasicLiteral) => {
+  const { description, title = "" } = props;
   return `
 ## ${title}
 
 ${description}
 `;
-}
-
-type TDownloadTemplate = {
-  description: string;
-  preDescription: string;
-  preCode: string;
-  steps: {
-    step: string;
-    code: string;
-  }[];
-}
+};
 
 export const DownloadTemplate = (props: TDownloadTemplate) => {
-  const {description, preDescription, preCode, steps } = props;
+  const { description, preDescription, preCode, steps } = props;
 
   let str = `
 ## Getting Started
@@ -79,6 +59,6 @@ ${idx + 1}. ${curr.step}
   ${curr.code}
   \`\`\`
     `;
-  })
+  });
   return str;
-}
+};

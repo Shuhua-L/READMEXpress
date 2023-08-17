@@ -1,15 +1,12 @@
 "use client";
-import { useState, useEffect } from "react";
-import InputForms from "@/InputForms";
+import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 
+import InputForms from "@/InputForms";
 import generateTableOfContents from "@/utils/generateTOC";
-
-interface Map {
-  [key: string]: string | undefined;
-}
+import type { TTemplate, Map } from "@/types";
 
 export default function Home() {
   let str = `## Example Markdown `;
@@ -31,9 +28,9 @@ export default function Home() {
   const [contents, setContents] = useState({} as Map);
   const [showTOC, setShowTOC] = useState(true);
 
-  // const initSections = (template: []) => {
-  //   return template.map((sec) => sec.name);
-  // };
+  const initSections = (template: TTemplate) => {
+    return sections.map((sec) => template[sec]);
+  };
 
   const updateDocument = () => {
     let res = sections.filter((sec) => sec !== undefined).map((sec: string) => contents[sec]);

@@ -30,16 +30,15 @@ export default function Home() {
   const [showTOC, setShowTOC] = useState(true);
 
   useEffect(() => {
-    const initSections = (template: TTemplate) => {
+    const initContent = (template: TTemplate) => {
       return sections.reduce((doc, sec) => {
-        console.log("sec", sec, template[sec]);
-        let defaultData = template[sec].default;
-        let literalTemplate = getLiteral({ section: sec, props: defaultData });
+        let { title, default: defaultData } = template[sec];
+        let literalTemplate = getLiteral({ section: sec, props: { title, ...defaultData } });
         doc[sec] = literalTemplate;
         return doc;
       }, {} as Map);
     };
-    setContents(initSections(template));
+    setContents(initContent(template));
   }, [sections]);
 
   const updateDocument = () => {

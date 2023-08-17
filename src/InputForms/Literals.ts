@@ -8,15 +8,12 @@ type GetLiteralProps = {
 const getLiteral = ({ section, props }: GetLiteralProps) => {
   switch (section) {
     case "header": {
-      console.log({ section }, "1");
       return HeaderTemplate(props);
     }
     case "getting-started": {
-      console.log({ section }, "2");
       return DownloadTemplate(props);
     }
     default: {
-      console.log({ section }, "0");
       return BasicLiteral(props);
     }
   }
@@ -50,7 +47,7 @@ ${catchPhrase}
 };
 
 export const BasicLiteral = (props: TBasicLiteral) => {
-  const { description, title = "" } = props;
+  const { description, title } = props;
   return `
 ## ${title}
 

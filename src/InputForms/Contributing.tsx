@@ -1,15 +1,16 @@
 import { useForm, Controller } from "react-hook-form";
 import { BasicTemplate } from "./Literals";
 import type { TBasicTemplate } from "./Literals";
-import { SaveButton, TextArea } from "./MyComponents";
+import { SaveButton } from "./MyComponents";
 
-import SimpleMdeReact from "react-simplemde-editor";
+import dynamic from "next/dynamic";
+const SimpleMdeReact = dynamic(() => import("react-simplemde-editor"), { ssr: false });
 import "easymde/dist/easymde.min.css";
 import { useMemo } from "react";
 import { options } from "@/Editor/EditorOptions";
 
 type Props = {
-  updateDocument: (doc: string) => void;
+  updateContent: (doc: string, section: string) => void;
 };
 
 type FormValues = {
@@ -17,7 +18,7 @@ type FormValues = {
 };
 
 const Contributing = (props: Props) => {
-  const { handleSubmit, register, control, resetField, setValue } = useForm<FormValues>({
+  const { handleSubmit, control, resetField, setValue } = useForm<FormValues>({
     defaultValues: {
       description: `Here's how you can contribute:
 
@@ -31,7 +32,7 @@ const Contributing = (props: Props) => {
   const onSubmit = (data: TBasicTemplate) => {
     data["title"] = "Contributing";
     let literal = BasicTemplate(data);
-    props.updateDocument(literal);
+    props.updateContent(literal, "contributing");
   };
 
   const editorOptions = useMemo(options, []);
@@ -42,14 +43,6 @@ const Contributing = (props: Props) => {
       <div className='collapse-title text-lg font-medium'>Contributing</div>
       <div className='collapse-content bg-neutral-content'>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 py-4 px-2'>
-          {/* <TextArea
-            {...register("description")}
-            name='description'
-            label='Description'
-            required={false}
-            placeholder='Contributions are what make the open source community such an amazing place to learn, inspire, and create. '
-          /> */}
-
           <div>
             <button
               type='button'
@@ -69,7 +62,7 @@ const Contributing = (props: Props) => {
             control={control}
             rules={{ required: true }}
             render={({ field }) => (
-              <SimpleMdeReact options={editorOptions} {...field} className='shadow-lg' />
+              <SimpleMdeReact options={editorOptions} {...field} ref={null} className='shadow-lg' />
             )}
           />
           <SaveButton />

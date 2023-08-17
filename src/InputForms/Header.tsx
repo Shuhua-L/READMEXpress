@@ -11,7 +11,7 @@ type THeaderTemplate = {
 };
 
 type Props = {
-  updateDocument: (doc: string) => void;
+  updateContent: (doc: string, section: string) => void;
 };
 
 const Header = (props: Props) => {
@@ -25,8 +25,7 @@ const Header = (props: Props) => {
   });
   const onSubmit: SubmitHandler<THeaderTemplate> = (data) => {
     let literal = HeaderTemplate(data);
-    // console.log(literal);
-    props.updateDocument(literal);
+    props.updateContent(literal, "header");
   };
 
   return (

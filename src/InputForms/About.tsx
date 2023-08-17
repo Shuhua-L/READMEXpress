@@ -4,7 +4,7 @@ import type { TBasicTemplate } from "./Literals";
 import { SaveButton, TextArea } from "./MyComponents";
 
 type Props = {
-  updateDocument: (doc: string) => void;
+  updateContent: (doc: string, section: string) => void;
 };
 
 type FormValues = {
@@ -19,12 +19,10 @@ To get a local copy up and running follow these simple example steps.`,
     },
     mode: "onChange",
   });
-  const onSubmit = (data: FormValues) => {
-    let tem: TBasicTemplate = data;
-    tem["title"] = "About";
-    let literal = BasicTemplate(tem);
-    // console.log(literal);
-    props.updateDocument(literal);
+  const onSubmit = (data: TBasicTemplate) => {
+    data["title"] = "About";
+    let literal = BasicTemplate(data);
+    props.updateContent(literal, "about");
   };
 
   return (

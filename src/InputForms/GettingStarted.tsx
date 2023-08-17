@@ -5,7 +5,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { BiSolidAddToQueue } from "react-icons/bi";
 
 type Props = {
-  updateDocument: (doc: string) => void;
+  updateContent: (doc: string, section: string) => void;
 };
 
 type FormValues = {
@@ -43,8 +43,7 @@ const GettingStarted = (props: Props) => {
   });
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     let literal = DownloadTemplate(data);
-    // console.log(literal);
-    props.updateDocument(literal);
+    props.updateContent(literal, "getting-started");
   };
   return (
     <div className='collapse collapse-arrow bg-base-200'>

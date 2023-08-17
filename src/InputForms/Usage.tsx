@@ -1,15 +1,16 @@
 import { useForm, Controller } from "react-hook-form";
 import { BasicTemplate } from "./Literals";
 import type { TBasicTemplate } from "./Literals";
-import { SaveButton, TextArea } from "./MyComponents";
+import { SaveButton } from "./MyComponents";
 
-import SimpleMdeReact from "react-simplemde-editor";
+import dynamic from "next/dynamic";
+const SimpleMdeReact = dynamic(() => import("react-simplemde-editor"), { ssr: false });
 import "easymde/dist/easymde.min.css";
 import { useMemo } from "react";
 import { options } from "@/Editor/EditorOptions";
 
 type Props = {
-  updateDocument: (doc: string) => void;
+  updateContent: (doc: string, section: string) => void;
 };
 
 type FormValues = {
@@ -17,7 +18,7 @@ type FormValues = {
 };
 
 const Usage = (props: Props) => {
-  const { handleSubmit, register, control, resetField, setValue } = useForm<FormValues>({
+  const { handleSubmit, control, resetField, setValue } = useForm<FormValues>({
     defaultValues: {
       description:
         "Use this space to tell a little more about your project and how it can be used. Show additional screenshots, code samples, demos or link to other resources. ",
@@ -26,7 +27,7 @@ const Usage = (props: Props) => {
   const onSubmit = (data: TBasicTemplate) => {
     data["title"] = "Usage";
     let literal = BasicTemplate(data);
-    props.updateDocument(literal);
+    props.updateContent(literal, "usage");
   };
 
   const editorOptions = useMemo(options, []);
@@ -37,14 +38,6 @@ const Usage = (props: Props) => {
       <div className='collapse-title text-lg font-medium'>Usage</div>
       <div className='collapse-content bg-neutral-content'>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 py-4 px-2'>
-          {/* <TextArea
-            {...register("description")}
-            name='description'
-            label='Description'
-            required={false}
-            placeholder='Add notes about how to use the system.'
-          /> */}
-
           <div>
             <button
               type='button'
@@ -64,7 +57,7 @@ const Usage = (props: Props) => {
             control={control}
             rules={{ required: true }}
             render={({ field }) => (
-              <SimpleMdeReact options={editorOptions} {...field} className='shadow-lg' />
+              <SimpleMdeReact options={editorOptions} {...field} ref={null} className='shadow-lg' />
             )}
           />
           <SaveButton />

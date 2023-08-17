@@ -1,7 +1,9 @@
-import SimpleMDE from "easymde";
+import dynamic from "next/dynamic";
+const SimpleMDE = dynamic(() => import("easymde"), { ssr: false });
 
 export const options = () => {
   return {
+    ...SimpleMDE.Options,
     autofocus: true,
     spellChecker: false,
     status: false,
@@ -32,5 +34,5 @@ export const options = () => {
       "fullscreen",
       "guide",
     ],
-  } as SimpleMDE.Options;
+  };
 };

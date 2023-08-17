@@ -3,7 +3,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { BiSolidAddToQueue } from "react-icons/bi";
 
 import { TextArea, SaveButton, CodeInput } from "./MyComponents";
-import { DownloadTemplate } from "./Literals";
+import getLiteral from "./Literals";
 import template from "@/data/template";
 import type { TSectionProps, TDownloadTemplate } from "@/types";
 
@@ -17,7 +17,7 @@ const GettingStarted = ({ section, updateContent }: TSectionProps) => {
     control,
   });
   const onSubmit: SubmitHandler<TDownloadTemplate> = (data) => {
-    let literal = DownloadTemplate(data);
+    let literal = getLiteral({ section, props: data });
     updateContent(literal, section);
   };
   return (

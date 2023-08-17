@@ -9,6 +9,7 @@ const template: TTemplate = {
       repository: "READMEXpress",
       projectTitle: "READMEXpress",
       catchPhrase: "An awesome README generator",
+      logoURL: "https://raw.githubusercontent.com/Shuhua-L/READMEXpress/main/public/logo.png",
     },
   },
   about: {

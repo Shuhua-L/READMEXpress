@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 const SimpleMdeReact = dynamic(() => import("react-simplemde-editor"), { ssr: false });
 import "easymde/dist/easymde.min.css";
 
-import { BasicLiteral } from "./Literals";
+import getLiteral from "./Literals";
 import { SaveButton } from "./MyComponents";
 import { options } from "@/Editor/EditorOptions";
 import template from "@/data/template";
@@ -15,8 +15,7 @@ const Usage = ({ section, updateContent }: TSectionProps) => {
     defaultValues: template[section].default,
   });
   const onSubmit = (data: TBasicLiteral) => {
-    data["title"] = template[section].title;
-    let literal = BasicLiteral(data);
+    let literal = getLiteral({ section, props: data });
     updateContent(literal, section);
   };
 

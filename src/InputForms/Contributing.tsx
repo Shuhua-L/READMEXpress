@@ -6,7 +6,7 @@ import "easymde/dist/easymde.min.css";
 
 import { SaveButton } from "./MyComponents";
 import template from "@/data/template";
-import { BasicLiteral } from "./Literals";
+import getLiteral from "./Literals";
 import { options } from "@/Editor/EditorOptions";
 import type { TSectionProps, TBasicLiteral } from "@/types";
 
@@ -17,8 +17,7 @@ const Contributing = ({ section, updateContent }: TSectionProps) => {
   });
 
   const onSubmit = (data: TBasicLiteral) => {
-    data["title"] = template[section].title;
-    let literal = BasicLiteral(data);
+    let literal = getLiteral({ section, props: data });
     updateContent(literal, section);
   };
 
@@ -27,7 +26,7 @@ const Contributing = ({ section, updateContent }: TSectionProps) => {
   return (
     <div className='collapse collapse-arrow bg-base-200'>
       <input type='checkbox' />
-      <div className='collapse-title text-lg font-medium'>${template[section].title}</div>
+      <div className='collapse-title text-lg font-medium'>{template[section].title}</div>
       <div className='collapse-content bg-neutral-content'>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 py-4 px-2'>
           <div>

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 
-import { BasicLiteral } from "./Literals";
+import getLiteral from "./Literals";
 import { SaveButton, TextArea } from "./MyComponents";
 import template from "@/data/template";
 import type { TSectionProps, TBasicLiteral } from "@/types";
@@ -12,7 +12,8 @@ const About = ({ section, updateContent }: TSectionProps) => {
   });
   const onSubmit = (data: TBasicLiteral) => {
     data["title"] = template[section].title;
-    updateContent(BasicLiteral(data), section);
+    let literal = getLiteral({ section, props: data });
+    updateContent(literal, section);
   };
 
   return (

@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 
-import { HeaderTemplate } from "./Literals";
+import getLiteral from "./Literals";
 import { Input, SaveButton } from "./MyComponents";
 import template from "@/data/template";
 import type { TSectionProps, THeaderTemplate } from "@/types";
@@ -10,7 +10,7 @@ const Header = ({ section, updateContent }: TSectionProps) => {
     defaultValues: template[section].default,
   });
   const onSubmit: SubmitHandler<THeaderTemplate> = (data) => {
-    let literal = HeaderTemplate(data);
+    let literal = getLiteral({ section, props: data });
     updateContent(literal, section);
   };
 

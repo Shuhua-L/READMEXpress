@@ -1,10 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 
 import InputForms from "@/InputForms";
+import getLiteral from "@/InputForms/Literals";
+import template from "@/data/template";
 import generateTableOfContents from "@/utils/generateTOC";
 import type { TTemplate, Map } from "@/types";
 
@@ -19,7 +21,6 @@ export default function Home() {
   // update if DnD, add, or delete sections
   const [sections, setSections] = useState([
     "header",
-    "TOC",
     "about",
     "getting-started",
     "usage",
@@ -28,9 +29,18 @@ export default function Home() {
   const [contents, setContents] = useState({} as Map);
   const [showTOC, setShowTOC] = useState(true);
 
-  const initSections = (template: TTemplate) => {
-    return sections.map((sec) => template[sec]);
-  };
+  useEffect(() => {
+    const initSections = (template: TTemplate) => {
+      return sections.reduce((doc, sec) => {
+        console.log("sec", sec, template[sec]);
+        let defaultData = template[sec].default;
+        let literalTemplate = getLiteral({ section: sec, props: defaultData });
+        doc[sec] = literalTemplate;
+        return doc;
+      }, {} as Map);
+    };
+    setContents(initSections(template));
+  }, [sections]);
 
   const updateDocument = () => {
     let res = sections.filter((sec) => sec !== undefined).map((sec: string) => contents[sec]);

@@ -1,29 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-type CopiedValue = string | null;
-type CopyFn = (text: string) => Promise<boolean>;
+type CopyFn = (text: string) => void;
+type Copied = boolean;
 
-const useCopyToClipboard = (): [CopiedValue, CopyFn] => {
-  const [copiedText, setCopiedText] = useState<CopiedValue>(null);
+const useCopyToClipboard = (): [CopyFn, Copied] => {
+  const [copied, setCopied] = useState(false);
 
-  const CopyToClipboard: CopyFn = async (text) => {
+  useEffect(() => {
+    if (copied) {
+      setTimeout(() => {
+        setCopied(false);
+      }, 1800);
+    }
+  }, [copied]);
+
+  const CopyToClipboard: CopyFn = (text) => {
     if (!navigator?.clipboard) {
       console.warn("Clipboard not supported");
-      return false;
     }
 
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopiedText(text);
-      return true;
-    } catch (error) {
-      console.warn("Copy failed", error);
-      setCopiedText(null);
-      return false;
-    }
+    navigator.clipboard
+      .writeText(text)
+      .then(() => setCopied(true))
+      .catch((err) => console.warn("Copy failed", err));
   };
 
-  return [copiedText, CopyToClipboard];
+  return [CopyToClipboard, copied];
 };
 
 export default useCopyToClipboard;

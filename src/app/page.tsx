@@ -10,7 +10,7 @@ import getLiteral from "@/InputForms/Literals";
 import template from "@/data/template";
 import generateTableOfContents from "@/utils/generateTOC";
 import type { TTemplate, Map } from "@/types";
-import { BiPaste } from "react-icons/bi";
+import { FaClipboard, FaClipboardCheck } from "react-icons/fa";
 import useCopyToClipboard from "@/utils/useCopyToClipboard";
 
 export default function Home() {
@@ -31,7 +31,7 @@ export default function Home() {
   ]);
   const [contents, setContents] = useState({} as Map);
   const [showTOC, setShowTOC] = useState(true);
-  const [value, CopyToClipboard] = useCopyToClipboard();
+  const [CopyToClipboard, copied] = useCopyToClipboard();
 
   useEffect(() => {
     const initContent = (template: TTemplate) => {
@@ -61,7 +61,7 @@ export default function Home() {
     });
   };
 
-  console.log(updateDocument());
+  // console.log(updateDocument());
 
   return (
     <div className='px-4 gap-4 md:flex flex-auto'>
@@ -69,15 +69,18 @@ export default function Home() {
         <InputForms updateContent={updateContent} />
       </div>
       <div className='bg-accent-focus md:w-1/2 mb-[1vh] max-h-[92vh] min-h-[45vh] md:overflow-y-scroll relative'>
-        <button
-          type='button'
-          onClick={() => {
-            CopyToClipboard(updateDocument());
-          }}
-          className='absolute top-3 right-2.5 btn btn-sm btn-square'>
-          <BiPaste className='h-5 w-5' />
-          <span className='sr-only'>Copy To Clipboard</span>
-        </button>
+        <div
+          className='tooltip tooltip-left tooltip-warning absolute top-3 right-2.5 '
+          data-tip={`${copied ? "copied" : "copy"}`}>
+          <label
+            className={`swap btn btn-sm btn-square
+          ${copied ? "swap-active" : ""}
+          `}
+            onClick={() => CopyToClipboard(updateDocument())}>
+            <FaClipboard className='h-5 w-5 fill-current swap-off' />
+            <FaClipboardCheck className='h-5 w-5 fill-current swap-on' />
+          </label>
+        </div>
         <ReactMarkdown
           rehypePlugins={[rehypeRaw]}
           remarkPlugins={[remarkGfm, [remarkToc, { tight: true }]]}

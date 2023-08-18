@@ -21,8 +21,8 @@ const Header = ({ section, updateContent }: TSectionProps) => {
       <div className='collapse-content bg-neutral-content'>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 py-4 px-2'>
           <Input
-            {...register("githubHandler", { required: true, maxLength: 50 })}
-            name='githubHandler'
+            {...register("githubUser", { required: true, maxLength: 50 })}
+            name='githubUser'
             label='Github Username'
             placeholder='Github Username'
             required={true}

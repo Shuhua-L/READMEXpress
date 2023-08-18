@@ -5,7 +5,7 @@ const template: TTemplate = {
     name: "header",
     title: "Header",
     default: {
-      githubHandler: "Shuhua-L",
+      githubUser: "Shuhua-L",
       repository: "READMEXpress",
       projectTitle: "READMEXpress",
       catchPhrase: "An awesome README generator",

@@ -4,7 +4,7 @@ export type TSectionProps = {
 };
 
 export type THeaderTemplate = {
-  githubHandler: string;
+  githubUser: string;
   repository: string;
   projectTitle: string;
   catchPhrase: string;

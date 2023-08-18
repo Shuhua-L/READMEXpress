@@ -14,12 +14,6 @@ import { FaClipboard, FaClipboardCheck } from "react-icons/fa";
 import useCopyToClipboard from "@/utils/useCopyToClipboard";
 
 export default function Home() {
-  let str = `## Example Markdown `;
-  str += `
-  [Link](https://google.com)
-  Man, imagine how *annoying* it would be to have to write **all** of
-  this using HTML tags`;
-
   // indicates all existing sections and their order
   // update if DnD, add, or delete sections
   const [sections, setSections] = useState([
@@ -30,8 +24,9 @@ export default function Home() {
     "contributing",
   ]);
   const [contents, setContents] = useState({} as Map);
-  const [showTOC, setShowTOC] = useState(true);
   const [CopyToClipboard, copied] = useCopyToClipboard();
+  const [showTOC, setShowTOC] = useState(true);
+  const [showBadges, setShowBadges] = useState(true);
 
   useEffect(() => {
     const initContent = (template: TTemplate) => {
@@ -64,27 +59,27 @@ export default function Home() {
   // console.log(updateDocument());
 
   return (
-    <div className='px-4 gap-4 md:flex flex-auto'>
+    <div className='px-4 md:flex flex-auto'>
       <div className='bg-neutral-content md:w-1/2 mb-[1vh] max-h-[92vh] min-h-[45vh] md:overflow-y-scroll'>
         <InputForms updateContent={updateContent} />
       </div>
-      <div className='bg-accent-focus md:w-1/2 mb-[1vh] max-h-[92vh] min-h-[45vh] md:overflow-y-scroll relative'>
+      <div className='md:w-1/2 mb-[1vh] max-h-[92vh] min-h-[45vh] md:overflow-y-scroll p-2'>
         <div
-          className='tooltip tooltip-left tooltip-warning absolute top-3 right-2.5 '
-          data-tip={`${copied ? "copied" : "copy"}`}>
+          className='tooltip tooltip-left tooltip-accent sticky md:top-3 left-[90%]'
+          data-tip={`${copied ? "copied ✔︎" : "copy"}`}>
           <label
-            className={`swap btn btn-sm btn-square
+            className={`swap btn btn-sm btn-ghost
           ${copied ? "swap-active" : ""}
           `}
             onClick={() => CopyToClipboard(updateDocument())}>
-            <FaClipboard className='h-5 w-5 fill-current swap-off' />
-            <FaClipboardCheck className='h-5 w-5 fill-current swap-on' />
+            <FaClipboard className='h-5 w-5 fill-accent-focus swap-off' />
+            <FaClipboardCheck className='h-5 w-5 fill-accent swap-on' />
           </label>
         </div>
         <ReactMarkdown
           rehypePlugins={[rehypeRaw]}
           remarkPlugins={[remarkGfm, [remarkToc, { tight: true }]]}
-          className='prose'>
+          className='prose prose-img:inline prose-img:m-1'>
           {updateDocument()}
         </ReactMarkdown>
       </div>

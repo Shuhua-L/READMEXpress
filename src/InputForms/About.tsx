@@ -1,36 +1,25 @@
 import { useForm } from "react-hook-form";
-import { BasicTemplate } from "./Literals";
-import type { TBasicTemplate } from "./Literals";
+
+import getLiteral from "./Literals";
 import { SaveButton, TextArea } from "./MyComponents";
+import template from "@/data/template";
+import type { TSectionProps, TBasicLiteral } from "@/types";
 
-type Props = {
-  updateDocument: (doc: string) => void;
-};
-
-type FormValues = {
-  description: string;
-};
-
-const About = (props: Props) => {
-  const { handleSubmit, register } = useForm<FormValues>({
-    defaultValues: {
-      description: `This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.`,
-    },
+const About = ({ section, updateContent }: TSectionProps) => {
+  const { handleSubmit, register } = useForm<TBasicLiteral>({
+    defaultValues: template[section].default,
     mode: "onChange",
   });
-  const onSubmit = (data: FormValues) => {
-    let tem: TBasicTemplate = data;
-    tem["title"] = "About";
-    let literal = BasicTemplate(tem);
-    // console.log(literal);
-    props.updateDocument(literal);
+  const onSubmit = (data: TBasicLiteral) => {
+    data["title"] = template[section].title;
+    let literal = getLiteral({ section, props: data });
+    updateContent(literal, section);
   };
 
   return (
     <div className='collapse collapse-arrow bg-base-200'>
       <input type='checkbox' />
-      <div className='collapse-title text-lg font-medium'>About</div>
+      <div className='collapse-title text-lg font-medium'>{template[section].title}</div>
       <div className='collapse-content bg-neutral-content'>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 py-4 px-2'>
           <TextArea

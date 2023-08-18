@@ -1,32 +1,17 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { HeaderTemplate } from "./Literals";
+
+import getLiteral from "./Literals";
 import { Input, SaveButton } from "./MyComponents";
+import template from "@/data/template";
+import type { TSectionProps, THeaderTemplate } from "@/types";
 
-type THeaderTemplate = {
-  githubHandler: string;
-  repository: string;
-  projectTitle: string;
-  catchPhrase: string;
-  logoURL: string;
-};
-
-type Props = {
-  updateDocument: (doc: string) => void;
-};
-
-const Header = (props: Props) => {
+const Header = ({ section, updateContent }: TSectionProps) => {
   const { register, handleSubmit } = useForm<THeaderTemplate>({
-    defaultValues: {
-      githubHandler: "Shuhua-L",
-      repository: "READMEXpress",
-      projectTitle: "READMEXpress",
-      catchPhrase: "An awesome README generator",
-    },
+    defaultValues: template[section].default,
   });
   const onSubmit: SubmitHandler<THeaderTemplate> = (data) => {
-    let literal = HeaderTemplate(data);
-    // console.log(literal);
-    props.updateDocument(literal);
+    let literal = getLiteral({ section, props: data });
+    updateContent(literal, section);
   };
 
   return (

@@ -1,46 +1,55 @@
-import { useForm } from "react-hook-form";
-import { BasicTemplate } from "./Literals";
-import type { TBasicTemplate } from "./Literals";
-import { SaveButton, TextArea } from "./MyComponents";
+import { useMemo } from "react";
+import { useForm, Controller } from "react-hook-form";
+import dynamic from "next/dynamic";
+const SimpleMdeReact = dynamic(() => import("react-simplemde-editor"), { ssr: false });
+import "easymde/dist/easymde.min.css";
 
-type Props = {
-  updateDocument: (doc: string) => void;
-};
+import { SaveButton } from "./MyComponents";
+import template from "@/data/template";
+import getLiteral from "./Literals";
+import { options } from "@/Editor/EditorOptions";
+import type { TSectionProps, TBasicLiteral } from "@/types";
 
-type FormValues = {
-  description: string;
-};
-
-const Contributing = (props: Props) => {
-  const { handleSubmit, register } = useForm<FormValues>({
-    defaultValues: {
-      description: `
-Here's how you can contribute:
-
-- [Open an issue]() if you believe you've encountered a bug.
-- Make a [pull request]() to add new features/make quality-of-life improvements/fix bugs.
-        `,
-    },
+const Contributing = ({ section, updateContent }: TSectionProps) => {
+  const { handleSubmit, control, resetField, setValue } = useForm<TBasicLiteral>({
+    defaultValues: template[section].default,
+    mode: "onChange",
   });
-  const onSubmit = (data: FormValues) => {
-    let tem: TBasicTemplate = data;
-    tem["title"] = "Contributing";
-    let literal = BasicTemplate(tem);
-    props.updateDocument(literal);
+
+  const onSubmit = (data: TBasicLiteral) => {
+    let literal = getLiteral({ section, props: data });
+    updateContent(literal, section);
   };
+
+  const editorOptions = useMemo(options, []);
 
   return (
     <div className='collapse collapse-arrow bg-base-200'>
       <input type='checkbox' />
-      <div className='collapse-title text-lg font-medium'>Contributing</div>
+      <div className='collapse-title text-lg font-medium'>{template[section].title}</div>
       <div className='collapse-content bg-neutral-content'>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 py-4 px-2'>
-          <TextArea
-            {...register("description")}
+          <div>
+            <button
+              type='button'
+              className='btn btn-sm w-1/2'
+              onClick={() => resetField("description")}>
+              Reset
+            </button>
+            <button
+              type='button'
+              className='btn btn-sm w-1/2'
+              onClick={() => setValue("description", "")}>
+              Clear
+            </button>
+          </div>
+          <Controller
             name='description'
-            label='Description'
-            required={false}
-            placeholder='Contributions are what make the open source community such an amazing place to learn, inspire, and create. '
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <SimpleMdeReact options={editorOptions} {...field} ref={null} className='shadow-lg' />
+            )}
           />
           <SaveButton />
         </form>

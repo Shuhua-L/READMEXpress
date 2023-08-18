@@ -1,42 +1,53 @@
-import { useForm } from "react-hook-form";
-import { BasicTemplate } from "./Literals";
-import type { TBasicTemplate } from "./Literals";
-import { SaveButton, TextArea } from "./MyComponents";
+import { useMemo } from "react";
+import { useForm, Controller } from "react-hook-form";
+import dynamic from "next/dynamic";
+const SimpleMdeReact = dynamic(() => import("react-simplemde-editor"), { ssr: false });
+import "easymde/dist/easymde.min.css";
 
-type Props = {
-  updateDocument: (doc: string) => void;
-};
+import getLiteral from "./Literals";
+import { SaveButton } from "./MyComponents";
+import { options } from "@/Editor/EditorOptions";
+import template from "@/data/template";
+import type { TSectionProps, TBasicLiteral } from "@/types";
 
-type FormValues = {
-  description: string;
-};
-
-const Usage = (props: Props) => {
-  const { handleSubmit, register } = useForm<FormValues>({
-    defaultValues: {
-      description:
-        "Use this space to tell a little more about your project and how it can be used. Show additional screenshots, code samples, demos or link to other resources. ",
-    },
+const Usage = ({ section, updateContent }: TSectionProps) => {
+  const { handleSubmit, control, resetField, setValue } = useForm<TBasicLiteral>({
+    defaultValues: template[section].default,
   });
-  const onSubmit = (data: FormValues) => {
-    let tem: TBasicTemplate = data;
-    tem["title"] = "Usage";
-    let literal = BasicTemplate(tem);
-    props.updateDocument(literal);
+  const onSubmit = (data: TBasicLiteral) => {
+    let literal = getLiteral({ section, props: data });
+    updateContent(literal, section);
   };
+
+  const editorOptions = useMemo(options, []);
 
   return (
     <div className='collapse collapse-arrow bg-base-200'>
       <input type='checkbox' />
-      <div className='collapse-title text-lg font-medium'>Usage</div>
+      <div className='collapse-title text-lg font-medium'>{template[section].title}</div>
       <div className='collapse-content bg-neutral-content'>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 py-4 px-2'>
-          <TextArea
-            {...register("description")}
+          <div>
+            <button
+              type='button'
+              className='btn btn-sm w-1/2'
+              onClick={() => resetField("description")}>
+              Reset
+            </button>
+            <button
+              type='button'
+              className='btn btn-sm w-1/2'
+              onClick={() => setValue("description", "")}>
+              Clear
+            </button>
+          </div>
+          <Controller
             name='description'
-            label='Description'
-            required={false}
-            placeholder='Add notes about how to use the system.'
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <SimpleMdeReact options={editorOptions} {...field} ref={null} className='shadow-lg' />
+            )}
           />
           <SaveButton />
         </form>

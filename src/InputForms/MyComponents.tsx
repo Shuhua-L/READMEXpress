@@ -6,6 +6,8 @@ import {
   forwardRef,
 } from "react";
 
+// import { InputProps } from "@/types";
+
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   label: string;
@@ -18,23 +20,21 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const { name, label, placeholder, required, className = "", ...rest } = props;
 
   return (
-    <>
-      <label className='block' htmlFor={name}>
-        <span
-          className={`label-text ${
-            required ? "after:content-['*'] after:ml-0.5 after:text-red-500" : ""
-          }`}>
-          {label}
-        </span>
-        <input
-          name={name}
-          placeholder={placeholder}
-          {...rest}
-          ref={ref}
-          className={`input w-full ${className}`}
-        />
-      </label>
-    </>
+    <label className='block' htmlFor={name}>
+      <span
+        className={`label-text ${
+          required ? "after:content-['*'] after:ml-0.5 after:text-red-500" : ""
+        }`}>
+        {label}
+      </span>
+      <input
+        name={name}
+        placeholder={placeholder}
+        {...rest}
+        ref={ref}
+        className={`input w-full ${className}`}
+      />
+    </label>
   );
 });
 
@@ -50,23 +50,21 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, r
   const { name, label, placeholder, required, className = "", ...rest } = props;
 
   return (
-    <>
-      <label className='block' htmlFor={name}>
-        <span
-          className={`label-text ${
-            required ? "after:content-['*'] after:ml-0.5 after:text-red-500" : ""
-          }`}>
-          {label}
-        </span>
-        <textarea
-          name={name}
-          placeholder={placeholder}
-          {...rest}
-          ref={ref}
-          className={`textarea textarea-bordered w-full ${className}`}
-        />
-      </label>
-    </>
+    <label className='block' htmlFor={name}>
+      <span
+        className={`label-text ${
+          required ? "after:content-['*'] after:ml-0.5 after:text-red-500" : ""
+        }`}>
+        {label}
+      </span>
+      <textarea
+        name={name}
+        placeholder={placeholder}
+        {...rest}
+        ref={ref}
+        className={`textarea textarea-bordered w-full ${className}`}
+      />
+    </label>
   );
 });
 
@@ -78,11 +76,9 @@ export const SaveButton = forwardRef<HTMLButtonElement, SaveButtonProps>((props,
   const { className = "", ...rest } = props;
 
   return (
-    <>
-      <button type='submit' className={`btn btn-wide mx-auto ${className}`} {...rest} ref={ref}>
-        Save
-      </button>
-    </>
+    <button type='submit' className={`btn btn-wide mx-auto ${className}`} {...rest} ref={ref}>
+      Save
+    </button>
   );
 });
 
@@ -97,18 +93,16 @@ export const CodeInput = forwardRef<HTMLInputElement, CodeProps>((props, ref) =>
   const { name, label, placeholder, className = "", ...rest } = props;
 
   return (
-    <>
-      <label className='block'>
-        <span className='label-text'>{label}</span>
-        <input
-          name={name}
-          placeholder={placeholder}
-          {...rest}
-          ref={ref}
-          className={`input input-sm kbd w-full ${className}`}
-          spellCheck={false}
-        />
-      </label>
-    </>
+    <label className='block'>
+      <span className='label-text'>{label}</span>
+      <input
+        name={name}
+        placeholder={placeholder}
+        {...rest}
+        ref={ref}
+        className={`input input-sm kbd w-full ${className}`}
+        spellCheck={false}
+      />
+    </label>
   );
 });

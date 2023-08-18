@@ -1,30 +1,11 @@
 import { THeaderTemplate, TBasicLiteral, TDownloadTemplate } from "@/types";
 
-type GetLiteralProps = {
-  section: string;
-  props: any;
-};
-
-const getLiteral = ({ section, props }: GetLiteralProps) => {
-  switch (section) {
-    case "header": {
-      return HeaderTemplate(props);
-    }
-    case "getting-started": {
-      return DownloadTemplate(props);
-    }
-    default: {
-      return BasicLiteral(props);
-    }
-  }
-};
-
 export const HeaderTemplate = (props: THeaderTemplate) => {
   const { projectTitle, catchPhrase, logoURL, githubHandler, repository } = props;
   const projectLogo =
     logoURL.length > 0
       ? `<a href="https://github.com/${githubHandler}/${repository}">
-  <img src="${logoURL}" alt="Logo" width="80" height="80">
+  <img src=${logoURL} alt="Logo" width="80" height="80">
   </a>`
       : "";
 
@@ -47,7 +28,7 @@ ${catchPhrase}
 };
 
 export const BasicLiteral = (props: TBasicLiteral) => {
-  const { description, title } = props;
+  const { description, title = "" } = props;
   return `
 ## ${title}
 
@@ -81,5 +62,3 @@ ${idx + 1}. ${curr.step}
   });
   return str;
 };
-
-export default getLiteral;

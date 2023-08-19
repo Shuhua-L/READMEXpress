@@ -68,7 +68,7 @@ export default function Home() {
           className='tooltip tooltip-left tooltip-accent sticky md:top-3 left-[90%]'
           data-tip={`${copied ? "copied ✔︎" : "copy"}`}>
           <label
-            className={`swap btn btn-sm btn-ghost
+            className={`swap btn btn-sm btn-ghost shadow-xl
           ${copied ? "swap-active" : ""}
           `}
             onClick={() => CopyToClipboard(updateDocument())}>
@@ -79,7 +79,7 @@ export default function Home() {
         <ReactMarkdown
           rehypePlugins={[rehypeRaw]}
           remarkPlugins={[remarkGfm, [remarkToc, { tight: true }]]}
-          className='prose prose-img:inline prose-img:m-1'>
+          className='prose'>
           {updateDocument()}
         </ReactMarkdown>
       </div>

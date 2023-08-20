@@ -2,6 +2,7 @@
 import {
   ButtonHTMLAttributes,
   InputHTMLAttributes,
+  SelectHTMLAttributes,
   TextareaHTMLAttributes,
   forwardRef,
 } from "react";
@@ -106,3 +107,30 @@ export const CodeInput = forwardRef<HTMLInputElement, CodeProps>((props, ref) =>
     </label>
   );
 });
+
+// interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
+//   name: string;
+//   label: string;
+//   required: boolean;
+//   options: string[];
+//   className?: string;
+// }
+
+// export const Select = forwardRef<HTMLSelectElement, SelectProps>((props, ref) => {
+//   const { name, label = "Pick one", required, options, className = "", ...rest } = props;
+
+//   return (
+//     <select
+//       className={`select select-bordered w-full max-w-xs  ${className}`}
+//       // defaultValue={options[0].value}
+//       {...rest}
+//       ref={ref}>
+//       {label && <option disabled>{label}</option>}
+//       {options.map((value) => (
+//         <option key={value} value={value}>
+//           {value}
+//         </option>
+//       ))}
+//     </select>
+//   );
+// });

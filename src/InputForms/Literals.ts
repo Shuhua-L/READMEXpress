@@ -1,4 +1,4 @@
-import { THeaderTemplate, TBasicLiteral, TDownloadTemplate, Map } from "@/types";
+import { THeaderTemplate, TBasicLiteral, TDownloadTemplate, NonEmptyMap } from "@/types";
 
 type GetLiteralProps = {
   section: string;
@@ -25,10 +25,6 @@ export type getBadgesProps = {
   templateNum: number;
   badgeStyle?: string;
 };
-
-export interface NonEmptyMap {
-  [key: string]: string;
-}
 
 export const getBadges = (props: getBadgesProps) => {
   const { user, repo, templateNum, badgeStyle } = props;

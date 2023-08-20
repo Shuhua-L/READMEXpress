@@ -37,3 +37,12 @@ export type TTemplate = {
     default: any;
   };
 };
+
+export type TTechnologies = {
+  description?: string;
+  listStyle: string;
+};
+
+export interface NonEmptyMap {
+  [key: string]: string;
+}

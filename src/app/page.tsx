@@ -19,6 +19,7 @@ export default function Home() {
   const [sections, setSections] = useState([
     "header",
     "about",
+    "tech",
     "getting-started",
     "usage",
     "contributing",

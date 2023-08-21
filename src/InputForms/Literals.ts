@@ -1,4 +1,10 @@
-import { THeaderTemplate, TBasicLiteral, TDownloadTemplate, NonEmptyMap } from "@/types";
+import {
+  THeaderTemplate,
+  TBasicLiteral,
+  TDownloadTemplate,
+  NonEmptyMap,
+  TTechnologies,
+} from "@/types";
 
 type GetLiteralProps = {
   section: string;
@@ -12,6 +18,9 @@ const getLiteral = ({ section, props }: GetLiteralProps) => {
     }
     case "getting-started": {
       return DownloadTemplate(props);
+    }
+    case "tech": {
+      return TechTemplate(props);
     }
     default: {
       return BasicLiteral(props);
@@ -130,38 +139,48 @@ ${getBadges({ user, repo, templateNum })}
 
 export const BasicLiteral = (props: TBasicLiteral) => {
   const { description, title } = props;
-  return `
-## ${title}
-
-${description}
-`;
+  return `\n ## ${title} \n ${description} \n`;
 };
 
 export const DownloadTemplate = (props: TDownloadTemplate) => {
   const { description, preDescription, preCode, steps } = props;
 
-  let str = `
-## Getting Started
-
-${description}
-
-### Prerequisites
-${preDescription}
+  let str = `\n ## Getting Started \n${description}
+### Prerequisites \n ${preDescription}
 \`\`\`bash
 ${preCode}
 \`\`\`
-
-### Installation
-`;
+\n ### Installation \n`;
 
   steps.forEach((curr, idx) => {
-    str += `
-${idx + 1}. ${curr.step}
+    str += `\n${idx + 1}. ${curr.step}
 \`\`\`bash
 ${curr.code}
-\`\`\`
-  `;
+\`\`\``;
   });
+  return str;
+};
+
+export const TechTemplate = (props: TTechnologies) => {
+  const { description, listStyle, selected } = props;
+
+  let str = `
+  ## Built With
+
+  ${description}
+`;
+
+  if (listStyle === "badge") {
+    // TODO:
+    selected?.forEach((tech) => {
+      str += ` - ${tech.label} \n`;
+    });
+  } else {
+    selected?.forEach((tech) => {
+      str += ` - ${tech.label} \n`;
+    });
+  }
+
   return str;
 };
 

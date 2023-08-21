@@ -41,6 +41,7 @@ export type TTemplate = {
 export type TTechnologies = {
   description?: string;
   listStyle: string;
+  selected?: any[];
 };
 
 export interface NonEmptyMap {

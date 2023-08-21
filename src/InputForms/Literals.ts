@@ -139,18 +139,18 @@ ${getBadges({ user, repo, templateNum })}
 
 export const BasicLiteral = (props: TBasicLiteral) => {
   const { description, title } = props;
-  return `\n ## ${title} \n ${description} \n`;
+  return `\n## ${title} \n ${description} \n`;
 };
 
 export const DownloadTemplate = (props: TDownloadTemplate) => {
   const { description, preDescription, preCode, steps } = props;
 
-  let str = `\n ## Getting Started \n${description}
+  let str = `\n## Getting Started \n${description}
 ### Prerequisites \n ${preDescription}
 \`\`\`bash
 ${preCode}
 \`\`\`
-\n ### Installation \n`;
+\n### Installation \n`;
 
   steps.forEach((curr, idx) => {
     str += `\n${idx + 1}. ${curr.step}

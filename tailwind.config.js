@@ -7,7 +7,7 @@ module.exports = {
         DEFAULT: {
           css: {
             img: {
-              display: "inline",
+              display: "inline-block",
               marginTop: "2px",
               marginBottom: "2px",
               marginRight: "2px",
@@ -26,6 +26,22 @@ module.exports = {
               backgroundColor: "#f0f0f0",
               overflowX: "auto",
               fontWeight: "300",
+              marginTop: "1em",
+              marginBottom: "1em",
+            },
+            li: {
+              marginTop: "0px",
+              marginBottom: "0px",
+            },
+            "ul, ol": {
+              marginTop: "2px",
+              marginBottom: "2px",
+            },
+            "> ul > li > *:first-child": {
+              marginTop: "0px",
+            },
+            "> ul > li > *:last-child": {
+              marginBottom: "0px",
             },
           },
         },

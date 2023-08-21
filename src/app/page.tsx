@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import remarkToc from "remark-toc";
 import rehypeRaw from "rehype-raw";
 
 import InputForms from "@/InputForms";
@@ -44,8 +43,7 @@ export default function Home() {
   const updateDocument = () => {
     let res = sections.filter((sec) => sec !== undefined).map((sec: string) => contents[sec]);
     if (showTOC && Object.keys(contents).length > 0) {
-      // res.splice(1, 0, generateTableOfContents(res.join("\n")));
-      res.splice(1, 0, "## Table of Contents");
+      res.splice(1, 0, generateTableOfContents(res.join("\n")));
     }
     return res.join("\n");
   };
@@ -57,7 +55,7 @@ export default function Home() {
     });
   };
 
-  // console.log(updateDocument());
+  console.log(updateDocument());
 
   return (
     <div className='px-4 md:flex flex-auto'>
@@ -77,10 +75,7 @@ export default function Home() {
             <FaClipboardCheck className='h-5 w-5 fill-accent swap-on' />
           </label>
         </div>
-        <ReactMarkdown
-          rehypePlugins={[rehypeRaw]}
-          remarkPlugins={[remarkGfm, [remarkToc, { tight: true }]]}
-          className='prose'>
+        <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]} className='prose'>
           {updateDocument()}
         </ReactMarkdown>
       </div>

@@ -3,7 +3,9 @@ import About from "./About";
 import GettingStarted from "./GettingStarted";
 import Usage from "./Usage";
 import Contributing from "./Contributing";
-import Technologies from "./Technologies";
+
+import dynamic from "next/dynamic";
+const Technologies = dynamic(() => import("./Technologies"));
 
 type Props = {
   updateContent: (doc: string, section: string) => void;

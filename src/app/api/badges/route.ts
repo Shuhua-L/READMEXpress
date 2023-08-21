@@ -1,6 +1,5 @@
 import Tech from "@/data/ignore/tech";
 import { NextRequest, NextResponse } from "next/server";
-import { colors } from "react-select/dist/declarations/src/theme";
 
 export async function GET(request: NextRequest) {
   console.log(request.nextUrl.searchParams);
@@ -16,12 +15,11 @@ export async function GET(request: NextRequest) {
     }
   });
 
+  let filteredOptions = options;
   if (inputValue) {
-    const filteredOptions = options.filter((i) =>
+    filteredOptions = options.filter((i) =>
       i.label.toLowerCase().includes(inputValue.toLowerCase())
     );
-    return NextResponse.json(filteredOptions);
-  } else {
-    return NextResponse.json(options);
   }
+  return NextResponse.json(filteredOptions);
 }

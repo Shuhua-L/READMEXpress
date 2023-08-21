@@ -1,5 +1,3 @@
-"use client";
-
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import AsyncSelect from "react-select/async";
 
@@ -40,6 +38,7 @@ const Technologies = ({ section, updateContent }: TSectionProps) => {
             required={false}
             placeholder='Write about 1-2 paragraphs describing the purpose of your project.'
           />
+
           <span className='w-full'>
             <label className='label-text'>List style: </label>
             <select className='select select-bordered  select-sm' {...register("listStyle")}>
@@ -47,24 +46,27 @@ const Technologies = ({ section, updateContent }: TSectionProps) => {
               <option value='badge'>badge</option>
             </select>
           </span>
-          Watched: {watchStyle}
-          <Controller
-            name='selected'
-            control={control}
-            render={({ field }) => (
-              <AsyncSelect
-                isMulti
-                cacheOptions
-                defaultOptions
-                isSearchable={true}
-                isClearable={true}
-                loadOptions={fetchOptions}
-                {...field}
-                menuPortalTarget={document.body}
-                menuPosition={"fixed"}
-              />
-            )}
-          />
+
+          {/* only run by the browser */}
+          {typeof document !== "undefined" && (
+            <Controller
+              name='selected'
+              control={control}
+              render={({ field }) => (
+                <AsyncSelect
+                  isMulti
+                  cacheOptions
+                  defaultOptions
+                  isSearchable={true}
+                  isClearable={true}
+                  loadOptions={fetchOptions}
+                  {...field}
+                  menuPortalTarget={document.body}
+                  menuPosition={"fixed"}
+                />
+              )}
+            />
+          )}
           <SaveButton />
         </form>
       </div>

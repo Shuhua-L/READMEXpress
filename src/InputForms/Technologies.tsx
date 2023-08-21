@@ -9,7 +9,7 @@ import template from "@/data/template";
 import type { TSectionProps, TTechnologies } from "@/types";
 
 const Technologies = ({ section, updateContent }: TSectionProps) => {
-  const { handleSubmit, register, control, resetField, setValue } = useForm<TTechnologies>({
+  const { handleSubmit, register, control, watch } = useForm<TTechnologies>({
     defaultValues: template[section].default,
   });
   const onSubmit: SubmitHandler<TTechnologies> = (data) => {
@@ -18,8 +18,10 @@ const Technologies = ({ section, updateContent }: TSectionProps) => {
     updateContent(literal, section);
   };
 
+  const watchStyle = watch("listStyle", template[section].default["listStyle"]);
+
   const fetchOptions = async (inputValue: string) => {
-    const response = await fetch(`/api/badges?input=${inputValue}`);
+    const response = await fetch(`/api/badges?input=${inputValue}&style=${watchStyle}`);
     const data = await response.json();
     // console.log("Fetched: ", data);
     return data;
@@ -38,7 +40,6 @@ const Technologies = ({ section, updateContent }: TSectionProps) => {
             required={false}
             placeholder='Write about 1-2 paragraphs describing the purpose of your project.'
           />
-
           <span className='w-full'>
             <label className='label-text'>List style: </label>
             <select className='select select-bordered  select-sm' {...register("listStyle")}>
@@ -46,7 +47,7 @@ const Technologies = ({ section, updateContent }: TSectionProps) => {
               <option value='badge'>badge</option>
             </select>
           </span>
-
+          Watched: {watchStyle}
           <Controller
             name='selected'
             control={control}
@@ -64,7 +65,6 @@ const Technologies = ({ section, updateContent }: TSectionProps) => {
               />
             )}
           />
-
           <SaveButton />
         </form>
       </div>

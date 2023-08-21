@@ -164,16 +164,11 @@ ${curr.code}
 export const TechTemplate = (props: TTechnologies) => {
   const { description, listStyle, selected } = props;
 
-  let str = `
-  ## Built With
-
-  ${description}
-`;
+  let str = `\n## Built With \n${description} \n`;
 
   if (listStyle === "badge") {
-    // TODO:
-    selected?.forEach((tech) => {
-      str += ` - ${tech.label} \n`;
+    selected?.forEach(({ label, value }) => {
+      str += ` * ![${label}](${value}) \n`;
     });
   } else {
     selected?.forEach((tech) => {

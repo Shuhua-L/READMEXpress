@@ -1,5 +1,5 @@
 export type TSectionProps = {
-  updateContent: (doc: string, section: string) => void;
+  // updateContent: (doc: string, section: string) => void;
   section: string;
 };
 

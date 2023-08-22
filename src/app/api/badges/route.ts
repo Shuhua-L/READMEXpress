@@ -2,7 +2,7 @@ import Tech from "@/data/ignore/tech";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
-  console.log(request.nextUrl.searchParams);
+  // console.log(request.nextUrl.searchParams);
   const inputValue = request.nextUrl.searchParams.get("input");
   const style = request.nextUrl.searchParams.get("style");
   const options = Object.entries(Tech).map(([key, info]) => {

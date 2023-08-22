@@ -12,22 +12,19 @@ import type { TTemplate, Map } from "@/types";
 import { FaClipboard, FaClipboardCheck } from "react-icons/fa";
 import useCopyToClipboard from "@/utils/useCopyToClipboard";
 
-export default function Home() {
-  // indicates all existing sections and their order
-  // update if DnD, add, or delete sections
-  const [sections, setSections] = useState([
-    "header",
-    "about",
-    "tech",
-    "getting-started",
-    "usage",
-    "contributing",
-  ]);
-  const [contents, setContents] = useState({} as Map);
-  const [CopyToClipboard, copied] = useCopyToClipboard();
-  const [showTOC, setShowTOC] = useState(true);
-  const [showBadges, setShowBadges] = useState(true);
+import { useAppSelector } from "@/store";
+import { useAppDispatch } from "@/store";
+import { setContents } from "@/store/features/documentSlice";
 
+export default function Home() {
+  const sections = useAppSelector((state) => state.document.sections);
+  const showTOC = useAppSelector((state) => state.document.settings?.showTOC);
+  const contents = useAppSelector((state) => state.document.contents);
+
+  const dispatch = useAppDispatch();
+  const [CopyToClipboard, copied] = useCopyToClipboard();
+
+  //  TODO: populate document state with initialState and remove this useEffect
   useEffect(() => {
     const initContent = (template: TTemplate) => {
       return sections.reduce((doc, sec) => {
@@ -37,9 +34,10 @@ export default function Home() {
         return doc;
       }, {} as Map);
     };
-    setContents(initContent(template));
-  }, [sections]);
+    dispatch(setContents(initContent(template)));
+  }, [sections, dispatch]);
 
+  // TODO:
   const updateDocument = () => {
     let res = sections.filter((sec) => sec !== undefined).map((sec: string) => contents[sec]);
     if (showTOC && Object.keys(contents).length > 0) {
@@ -48,19 +46,12 @@ export default function Home() {
     return res.join("\n");
   };
 
-  const updateContent = (doc: string, section: string) => {
-    setContents({
-      ...contents,
-      [section]: doc,
-    });
-  };
-
-  console.log(updateDocument());
+  // console.log(updateDocument());
 
   return (
     <div className='px-4 md:flex flex-auto'>
       <div className='bg-neutral-content md:w-1/2 mb-[1vh] max-h-[92vh] min-h-[45vh] md:overflow-y-scroll'>
-        <InputForms updateContent={updateContent} />
+        <InputForms />
       </div>
       <div className='md:w-1/2 mb-[1vh] max-h-[92vh] min-h-[45vh] md:overflow-y-scroll p-2'>
         <div

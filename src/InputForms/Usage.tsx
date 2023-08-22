@@ -10,13 +10,18 @@ import { options } from "@/Editor/EditorOptions";
 import template from "@/data/template";
 import type { TSectionProps, TBasicLiteral } from "@/types";
 
-const Usage = ({ section, updateContent }: TSectionProps) => {
+import { useAppDispatch } from "@/store";
+import { updateContent } from "@/store/features/documentSlice";
+
+const Usage = ({ section }: TSectionProps) => {
+  const dispatch = useAppDispatch();
+
   const { handleSubmit, control, resetField, setValue } = useForm<TBasicLiteral>({
     defaultValues: template[section].default,
   });
   const onSubmit = (data: TBasicLiteral) => {
     let literal = getLiteral({ section, props: data });
-    updateContent(literal, section);
+    dispatch(updateContent({ sec: section, doc: literal }));
   };
 
   const editorOptions = useMemo(options, []);

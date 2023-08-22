@@ -5,15 +5,18 @@ import { TextArea, SaveButton } from "./MyComponents";
 import getLiteral from "./Literals";
 import template from "@/data/template";
 import type { TSectionProps, TTechnologies } from "@/types";
+import { useAppDispatch } from "@/store";
+import { updateContent } from "@/store/features/documentSlice";
 
-const Technologies = ({ section, updateContent }: TSectionProps) => {
+const Technologies = ({ section }: TSectionProps) => {
+  const dispatch = useAppDispatch();
   const { handleSubmit, register, control, watch } = useForm<TTechnologies>({
     defaultValues: template[section].default,
   });
   const onSubmit: SubmitHandler<TTechnologies> = (data) => {
     // console.log(data);
     let literal = getLiteral({ section, props: data });
-    updateContent(literal, section);
+    dispatch(updateContent({ sec: section, doc: literal }));
   };
 
   const watchStyle = watch("listStyle", template[section].default["listStyle"]);

@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import remarkToc from "remark-toc";
 import rehypeRaw from "rehype-raw";
 
 import InputForms from "@/InputForms";
@@ -13,26 +12,19 @@ import type { TTemplate, Map } from "@/types";
 import { FaClipboard, FaClipboardCheck } from "react-icons/fa";
 import useCopyToClipboard from "@/utils/useCopyToClipboard";
 
-export default function Home() {
-  let str = `## Example Markdown `;
-  str += `
-  [Link](https://google.com)
-  Man, imagine how *annoying* it would be to have to write **all** of
-  this using HTML tags`;
+import { useAppSelector } from "@/store";
+import { useAppDispatch } from "@/store";
+import { setContents } from "@/store/features/documentSlice";
 
-  // indicates all existing sections and their order
-  // update if DnD, add, or delete sections
-  const [sections, setSections] = useState([
-    "header",
-    "about",
-    "getting-started",
-    "usage",
-    "contributing",
-  ]);
-  const [contents, setContents] = useState({} as Map);
-  const [showTOC, setShowTOC] = useState(true);
+export default function Home() {
+  const sections = useAppSelector((state) => state.document.sections);
+  const showTOC = useAppSelector((state) => state.document.settings?.showTOC);
+  const contents = useAppSelector((state) => state.document.contents);
+
+  const dispatch = useAppDispatch();
   const [CopyToClipboard, copied] = useCopyToClipboard();
 
+  //  TODO: populate document state with initialState and remove this useEffect
   useEffect(() => {
     const initContent = (template: TTemplate) => {
       return sections.reduce((doc, sec) => {
@@ -42,49 +34,39 @@ export default function Home() {
         return doc;
       }, {} as Map);
     };
-    setContents(initContent(template));
-  }, [sections]);
+    dispatch(setContents(initContent(template)));
+  }, [sections, dispatch]);
 
+  // TODO:
   const updateDocument = () => {
     let res = sections.filter((sec) => sec !== undefined).map((sec: string) => contents[sec]);
     if (showTOC && Object.keys(contents).length > 0) {
-      // res.splice(1, 0, generateTableOfContents(res.join("\n")));
-      res.splice(1, 0, "## Table of Contents");
+      res.splice(1, 0, generateTableOfContents(res.join("\n")));
     }
     return res.join("\n");
-  };
-
-  const updateContent = (doc: string, section: string) => {
-    setContents({
-      ...contents,
-      [section]: doc,
-    });
   };
 
   // console.log(updateDocument());
 
   return (
-    <div className='px-4 gap-4 md:flex flex-auto'>
+    <div className='px-4 md:flex flex-auto'>
       <div className='bg-neutral-content md:w-1/2 mb-[1vh] max-h-[92vh] min-h-[45vh] md:overflow-y-scroll'>
-        <InputForms updateContent={updateContent} />
+        <InputForms />
       </div>
-      <div className='bg-accent-focus md:w-1/2 mb-[1vh] max-h-[92vh] min-h-[45vh] md:overflow-y-scroll relative'>
+      <div className='md:w-1/2 mb-[1vh] max-h-[92vh] min-h-[45vh] md:overflow-y-scroll p-2'>
         <div
-          className='tooltip tooltip-left tooltip-warning absolute top-3 right-2.5 '
-          data-tip={`${copied ? "copied" : "copy"}`}>
+          className='tooltip tooltip-left tooltip-accent sticky md:top-3 left-[90%]'
+          data-tip={`${copied ? "copied ✔︎" : "copy"}`}>
           <label
-            className={`swap btn btn-sm btn-square
+            className={`swap btn btn-sm btn-ghost shadow-xl
           ${copied ? "swap-active" : ""}
           `}
             onClick={() => CopyToClipboard(updateDocument())}>
-            <FaClipboard className='h-5 w-5 fill-current swap-off' />
-            <FaClipboardCheck className='h-5 w-5 fill-current swap-on' />
+            <FaClipboard className='h-5 w-5 fill-accent-focus swap-off' />
+            <FaClipboardCheck className='h-5 w-5 fill-accent swap-on' />
           </label>
         </div>
-        <ReactMarkdown
-          rehypePlugins={[rehypeRaw]}
-          remarkPlugins={[remarkGfm, [remarkToc, { tight: true }]]}
-          className='prose'>
+        <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]} className='prose'>
           {updateDocument()}
         </ReactMarkdown>
       </div>

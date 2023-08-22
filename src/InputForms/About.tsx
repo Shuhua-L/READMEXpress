@@ -4,8 +4,12 @@ import getLiteral from "./Literals";
 import { SaveButton, TextArea } from "./MyComponents";
 import template from "@/data/template";
 import type { TSectionProps, TBasicLiteral } from "@/types";
+import { useAppDispatch } from "@/store";
+import { updateContent } from "@/store/features/documentSlice";
 
-const About = ({ section, updateContent }: TSectionProps) => {
+const About = ({ section }: TSectionProps) => {
+  const dispatch = useAppDispatch();
+
   const { handleSubmit, register } = useForm<TBasicLiteral>({
     defaultValues: template[section].default,
     mode: "onChange",
@@ -13,7 +17,7 @@ const About = ({ section, updateContent }: TSectionProps) => {
   const onSubmit = (data: TBasicLiteral) => {
     data["title"] = template[section].title;
     let literal = getLiteral({ section, props: data });
-    updateContent(literal, section);
+    dispatch(updateContent({ sec: section, doc: literal }));
   };
 
   return (

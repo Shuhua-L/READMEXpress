@@ -4,14 +4,20 @@ import getLiteral from "./Literals";
 import { Input, SaveButton } from "./MyComponents";
 import template from "@/data/template";
 import type { TSectionProps, THeaderTemplate } from "@/types";
+import { useAppDispatch } from "@/store";
+import { updateContent } from "@/store/features/documentSlice";
 
-const Header = ({ section, updateContent }: TSectionProps) => {
+const Header = ({ section }: TSectionProps) => {
+  const dispatch = useAppDispatch();
+
   const { register, handleSubmit } = useForm<THeaderTemplate>({
     defaultValues: template[section].default,
   });
   const onSubmit: SubmitHandler<THeaderTemplate> = (data) => {
+    console.log({ section });
     let literal = getLiteral({ section, props: data });
-    updateContent(literal, section);
+    // updateContent(literal, section);
+    dispatch(updateContent({ sec: section, doc: literal }));
   };
 
   return (
@@ -21,8 +27,8 @@ const Header = ({ section, updateContent }: TSectionProps) => {
       <div className='collapse-content bg-neutral-content'>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 py-4 px-2'>
           <Input
-            {...register("githubHandler", { required: true, maxLength: 50 })}
-            name='githubHandler'
+            {...register("githubUser", { required: true, maxLength: 50 })}
+            name='githubUser'
             label='Github Username'
             placeholder='Github Username'
             required={true}

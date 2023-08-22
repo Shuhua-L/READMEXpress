@@ -6,8 +6,11 @@ import { TextArea, SaveButton, CodeInput } from "./MyComponents";
 import getLiteral from "./Literals";
 import template from "@/data/template";
 import type { TSectionProps, TDownloadTemplate } from "@/types";
+import { useAppDispatch } from "@/store";
+import { updateContent } from "@/store/features/documentSlice";
 
-const GettingStarted = ({ section, updateContent }: TSectionProps) => {
+const GettingStarted = ({ section }: TSectionProps) => {
+  const dispatch = useAppDispatch();
   const { register, handleSubmit, control } = useForm<TDownloadTemplate>({
     defaultValues: template[section].default,
     mode: "onBlur",
@@ -18,7 +21,7 @@ const GettingStarted = ({ section, updateContent }: TSectionProps) => {
   });
   const onSubmit: SubmitHandler<TDownloadTemplate> = (data) => {
     let literal = getLiteral({ section, props: data });
-    updateContent(literal, section);
+    dispatch(updateContent({ sec: section, doc: literal }));
   };
   return (
     <div className='collapse collapse-arrow bg-base-200'>

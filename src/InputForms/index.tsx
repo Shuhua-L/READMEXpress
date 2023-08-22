@@ -4,18 +4,18 @@ import GettingStarted from "./GettingStarted";
 import Usage from "./Usage";
 import Contributing from "./Contributing";
 
-type Props = {
-  updateContent: (doc: string, section: string) => void;
-};
+import dynamic from "next/dynamic";
+const Technologies = dynamic(() => import("./Technologies"));
 
-const InputForms = (props: Props) => {
+const InputForms = () => {
   return (
     <div>
-      <Header updateContent={props.updateContent} section='header' />
-      <About updateContent={props.updateContent} section='about' />
-      <GettingStarted updateContent={props.updateContent} section='getting-started' />
-      <Usage updateContent={props.updateContent} section='usage' />
-      <Contributing updateContent={props.updateContent} section='contributing' />
+      <Header section='header' />
+      <About section='about' />
+      <Technologies section='tech' />
+      <GettingStarted section='getting-started' />
+      <Usage section='usage' />
+      <Contributing section='contributing' />
     </div>
   );
 };

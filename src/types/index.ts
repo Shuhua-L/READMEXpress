@@ -1,10 +1,10 @@
 export type TSectionProps = {
-  updateContent: (doc: string, section: string) => void;
+  // updateContent: (doc: string, section: string) => void;
   section: string;
 };
 
 export type THeaderTemplate = {
-  githubHandler: string;
+  githubUser: string;
   repository: string;
   projectTitle: string;
   catchPhrase: string;
@@ -37,3 +37,13 @@ export type TTemplate = {
     default: any;
   };
 };
+
+export type TTechnologies = {
+  description?: string;
+  listStyle: string;
+  selected?: any[];
+};
+
+export interface NonEmptyMap {
+  [key: string]: string;
+}

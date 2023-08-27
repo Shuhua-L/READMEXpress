@@ -1,12 +1,11 @@
 import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
-import getLiteral from "./Literals";
 import { Input, SaveButton } from "./MyComponents";
 import type { TSectionProps, THeaderTemplate } from "@/types";
 
 import { useAppSelector, useAppDispatch } from "@/store";
-import { updateContent, sectionTemplateSelector } from "@/store/features/documentSlice";
+import { updateContent, sectionTemplateSelector } from "@/store/documentSlice";
 
 const Header = ({ section }: TSectionProps) => {
   const dispatch = useAppDispatch();
@@ -16,8 +15,7 @@ const Header = ({ section }: TSectionProps) => {
     defaultValues: template?.default,
   });
   const onSubmit: SubmitHandler<THeaderTemplate> = (data) => {
-    let literal = getLiteral({ section, props: data });
-    dispatch(updateContent({ sec: section, doc: literal }));
+    dispatch(updateContent({ section, formData: data }));
   };
 
   useEffect(() => {

@@ -5,12 +5,12 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { FaClipboard, FaClipboardCheck } from "react-icons/fa";
 
-import InputForms from "@/InputForms";
+import InputForms from "@/components/InputForms";
 import generateTableOfContents from "@/utils/generateTOC";
 import useCopyToClipboard from "@/utils/useCopyToClipboard";
 
 import { useAppSelector, useAppDispatch } from "@/store";
-import { fetchTemplate } from "@/store/features/documentSlice";
+import { fetchTemplate } from "@/store/documentSlice";
 
 export default function Home() {
   const updatedDocument = useAppSelector((state) => {
@@ -27,10 +27,7 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(fetchTemplate());
-    // dispatch(updateTemplate(0));
   }, [dispatch]);
-
-  // console.log({ updatedDocument });
 
   return (
     <div className='px-4 md:flex flex-auto'>

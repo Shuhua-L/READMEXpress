@@ -1,12 +1,11 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-import getLiteral from "./Literals";
 import { SaveButton, TextArea } from "./MyComponents";
 import type { TSectionProps, TBasicLiteral } from "@/types";
 
 import { useAppSelector, useAppDispatch } from "@/store";
-import { updateContent, sectionTemplateSelector } from "@/store/features/documentSlice";
+import { updateContent, sectionTemplateSelector } from "@/store/documentSlice";
 
 const About = ({ section }: TSectionProps) => {
   const dispatch = useAppDispatch();
@@ -18,8 +17,7 @@ const About = ({ section }: TSectionProps) => {
   });
   const onSubmit = (data: TBasicLiteral) => {
     data["title"] = template?.title;
-    let literal = getLiteral({ section, props: data });
-    dispatch(updateContent({ sec: section, doc: literal }));
+    dispatch(updateContent({ section, formData: data }));
   };
 
   useEffect(() => {

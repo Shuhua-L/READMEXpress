@@ -2,12 +2,11 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import AsyncSelect from "react-select/async";
 
 import { TextArea, SaveButton } from "./MyComponents";
-import getLiteral from "./Literals";
 import type { TSectionProps, TTechnologies } from "@/types";
 
 import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "@/store";
-import { updateContent, sectionTemplateSelector } from "@/store/features/documentSlice";
+import { updateContent, sectionTemplateSelector } from "@/store/documentSlice";
 
 const Technologies = ({ section }: TSectionProps) => {
   const dispatch = useAppDispatch();
@@ -18,9 +17,8 @@ const Technologies = ({ section }: TSectionProps) => {
   });
 
   const onSubmit: SubmitHandler<TTechnologies> = (data) => {
-    // console.log(data);
-    let literal = getLiteral({ section, props: data });
-    dispatch(updateContent({ sec: section, doc: literal }));
+    console.log(data);
+    dispatch(updateContent({ section, formData: data }));
   };
 
   useEffect(() => {

@@ -5,13 +5,11 @@ const SimpleMdeReact = dynamic(() => import("react-simplemde-editor"), { ssr: fa
 import "easymde/dist/easymde.min.css";
 
 import { SaveButton } from "./MyComponents";
-import template from "@/data/template";
-import getLiteral from "./Literals";
-import { options } from "@/Editor/EditorOptions";
+import { options } from "@/components/Editor/EditorOptions";
 import type { TSectionProps, TBasicLiteral } from "@/types";
 
 import { useAppSelector, useAppDispatch } from "@/store";
-import { updateContent, sectionTemplateSelector } from "@/store/features/documentSlice";
+import { updateContent, sectionTemplateSelector } from "@/store/documentSlice";
 
 const Contributing = ({ section }: TSectionProps) => {
   const dispatch = useAppDispatch();
@@ -24,8 +22,7 @@ const Contributing = ({ section }: TSectionProps) => {
 
   const onSubmit = (data: TBasicLiteral) => {
     data["title"] = template?.title;
-    let literal = getLiteral({ section, props: data });
-    dispatch(updateContent({ sec: section, doc: literal }));
+    dispatch(updateContent({ section, formData: data }));
   };
 
   useEffect(() => {

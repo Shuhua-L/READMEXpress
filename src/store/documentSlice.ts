@@ -1,19 +1,7 @@
-import generateTableOfContents from "@/utils/generateTOC";
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "..";
-import getLiteral from "@/InputForms/Literals";
-import template from "@/data/template";
-
-export type TMap = {
-  [key: string]: any;
-};
-
-export type TSection = {
-  name: string;
-  title: string;
-  default?: TMap;
-  content?: string;
-};
+import { RootState } from ".";
+import getLiteral from "@/utils/Literals";
+import { TSection } from "@/types";
 
 interface DocumentState {
   sections: TSection[];
@@ -44,22 +32,12 @@ export const DocumentSlice = createSlice({
   name: "document",
   initialState,
   reducers: {
-    updateContent: (state, action: PayloadAction<{ sec: string; doc: string }>) => {
-      const { sec, doc } = action.payload;
-      let idx = state.sections.findIndex((section) => section.name === sec);
-      state.sections[idx].content = doc;
+    updateContent: (state, action: PayloadAction<{ section: string; formData: any }>) => {
+      const { section, formData } = action.payload;
+      let literal = getLiteral({ section, data: formData });
+      let idx = state.sections.findIndex((sec) => sec.name === section);
+      state.sections[idx].content = literal;
     },
-    // updateTemplate: (state, action: PayloadAction<number>) => {
-    //   // const template = template
-    //   state.sections = template.map((sec: TSection) => {
-    //     let { name, title, default: defaultData } = sec;
-    //     let literalTemplate = getLiteral({
-    //       section: name,
-    //       props: { title, ...defaultData },
-    //     });
-    //     return { ...sec, content: literalTemplate };
-    //   });
-    // },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchTemplate.fulfilled, (state, action) => {
@@ -67,7 +45,7 @@ export const DocumentSlice = createSlice({
         let { name, title, default: defaultData } = sec;
         let literalTemplate = getLiteral({
           section: name,
-          props: { title, ...defaultData },
+          data: { title, ...defaultData },
         });
         return { ...sec, content: literalTemplate };
       });

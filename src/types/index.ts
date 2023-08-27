@@ -25,14 +25,6 @@ export type TDownloadTemplate = {
   }[];
 };
 
-export type TTemplate = {
-  [key: string]: {
-    name: string;
-    title: string;
-    default: any;
-  };
-};
-
 export type TTechnologies = {
   description?: string;
   listStyle: string;

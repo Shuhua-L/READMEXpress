@@ -3,12 +3,11 @@ import { MdDeleteForever } from "react-icons/md";
 import { BiSolidAddToQueue } from "react-icons/bi";
 
 import { TextArea, SaveButton, CodeInput } from "./MyComponents";
-import getLiteral from "./Literals";
 import type { TSectionProps, TDownloadTemplate } from "@/types";
 
 import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "@/store";
-import { updateContent, sectionTemplateSelector } from "@/store/features/documentSlice";
+import { updateContent, sectionTemplateSelector } from "@/store/documentSlice";
 
 const GettingStarted = ({ section }: TSectionProps) => {
   const dispatch = useAppDispatch();
@@ -24,8 +23,7 @@ const GettingStarted = ({ section }: TSectionProps) => {
   });
 
   const onSubmit: SubmitHandler<TDownloadTemplate> = (data) => {
-    let literal = getLiteral({ section, props: data });
-    dispatch(updateContent({ sec: section, doc: literal }));
+    dispatch(updateContent({ section, formData: data }));
   };
 
   useEffect(() => {

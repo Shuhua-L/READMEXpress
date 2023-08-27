@@ -1,3 +1,8 @@
+/**
+ * generates a Table of Contents and insert it into the input string
+ * @param doc, a markdown file as a string
+ * @return a string
+ */
 const generateTableOfContents = (doc: string) => {
   // finds headings and their relative sizes
   let matches = Array.from(doc.matchAll(/\n(#+)[ \t](.+)\n/gm));
@@ -25,13 +30,17 @@ const generateTableOfContents = (doc: string) => {
 
   // console.log({ sizes, headings });
 
-  let TOC = `## Table of Contents  \n`;
-  headings.forEach((h, i) => {
+  const startLabel = `<!-- Table Of Contents -->`;
+  const endLabe = `<!-- End of Table Of Contents -->`;
+  const startIdx = doc.indexOf(startLabel);
+  const endIdx = doc.indexOf(endLabe);
+  let TOC = headings.reduce((acc, h, i) => {
     let size = Math.min(sizes[i], 2);
     let tabs = new Array(size).fill("  ").join("");
-    TOC += tabs + `* [${h}](#${slugify(h)}) \n`;
-  });
-  return TOC;
+    return acc + tabs + `* [${h}](#${slugify(h)}) \n`;
+  }, `\n## Table of Contents  \n`);
+
+  return doc.slice(0, startIdx + startLabel.length) + TOC + doc.slice(endIdx);
 };
 
 export default generateTableOfContents;

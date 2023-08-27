@@ -1,5 +1,4 @@
 export type TSectionProps = {
-  // updateContent: (doc: string, section: string) => void;
   section: string;
 };
 
@@ -26,18 +25,6 @@ export type TDownloadTemplate = {
   }[];
 };
 
-export interface Map {
-  [key: string]: string | undefined;
-}
-
-export type TTemplate = {
-  [key: string]: {
-    name: string;
-    title: string;
-    default: any;
-  };
-};
-
 export type TTechnologies = {
   description?: string;
   listStyle: string;
@@ -47,3 +34,14 @@ export type TTechnologies = {
 export interface NonEmptyMap {
   [key: string]: string;
 }
+
+export type TMap = {
+  [key: string]: any;
+};
+
+export type TSection = {
+  name: string;
+  title: string;
+  default?: TMap;
+  content?: string;
+};

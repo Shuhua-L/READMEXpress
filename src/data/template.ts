@@ -1,7 +1,7 @@
-import type { TTemplate } from "@/types";
+import { TSection } from "@/types";
 
-const template: TTemplate = {
-  header: {
+const template: TSection[] = [
+  {
     name: "header",
     title: "Header",
     default: {
@@ -12,7 +12,11 @@ const template: TTemplate = {
       logoURL: "https://raw.githubusercontent.com/Shuhua-L/READMEXpress/main/public/logo.png",
     },
   },
-  about: {
+  {
+    name: "toc",
+    title: "Table of Contents",
+  },
+  {
     name: "about",
     title: "About the Project",
     default: {
@@ -20,7 +24,43 @@ const template: TTemplate = {
 To get a local copy up and running follow these simple example steps.`,
     },
   },
-  "getting-started": {
+  {
+    name: "tech",
+    title: "Built With",
+    default: {
+      description:
+        "This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ones/plugins for the acknowledgements section. Here are a few examples.",
+      listStyle: "badge",
+      selected: [
+        {
+          label: "React",
+          value:
+            "https://img.shields.io/badge/react-%2320232a?style=for-the-badge&logo=react&logoColor=%2361DAFB",
+        },
+        {
+          label: "Next.js",
+          value:
+            "https://img.shields.io/badge/nextjs-black?style=for-the-badge&logo=next.js&logoColor=white",
+        },
+        {
+          label: "Markdown",
+          value:
+            "https://img.shields.io/badge/markdown-%23000000?style=for-the-badge&logo=markdown&logoColor=white",
+        },
+        {
+          label: "TypeScript",
+          value:
+            "https://img.shields.io/badge/typescript-%23007ACC?style=for-the-badge&logo=typescript&logoColor=white",
+        },
+        {
+          label: "Tailwind CSS",
+          value:
+            "https://img.shields.io/badge/tailwindcss-%2338B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white",
+        },
+      ],
+    },
+  },
+  {
     name: "getting-started",
     title: "Getting Started",
     default: {
@@ -39,7 +79,7 @@ To get a local copy up and running follow these simple example steps.`,
       ],
     },
   },
-  usage: {
+  {
     name: "usage",
     title: "Usage",
     default: {
@@ -47,7 +87,7 @@ To get a local copy up and running follow these simple example steps.`,
         "Use this space to tell a little more about your project and how it can be used. Show additional screenshots, code samples, demos or link to other resources. ",
     },
   },
-  contributing: {
+  {
     name: "contributing",
     title: "Contributing",
     default: {
@@ -58,21 +98,6 @@ To get a local copy up and running follow these simple example steps.`,
         `,
     },
   },
-
-  tech: {
-    name: "tech",
-    title: "Built With",
-    default: {
-      description:
-        "This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ones/plugins for the acknowledgements section. Here are a few examples.",
-      listStyle: "badge",
-    },
-  },
-  empty: {
-    name: "",
-    title: "",
-    default: {},
-  },
-};
+];
 
 export default template;

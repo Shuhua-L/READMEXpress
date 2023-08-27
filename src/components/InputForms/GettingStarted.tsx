@@ -3,30 +3,37 @@ import { MdDeleteForever } from "react-icons/md";
 import { BiSolidAddToQueue } from "react-icons/bi";
 
 import { TextArea, SaveButton, CodeInput } from "./MyComponents";
-import getLiteral from "./Literals";
-import template from "@/data/template";
 import type { TSectionProps, TDownloadTemplate } from "@/types";
-import { useAppDispatch } from "@/store";
-import { updateContent } from "@/store/features/documentSlice";
+
+import { useEffect } from "react";
+import { useAppSelector, useAppDispatch } from "@/store";
+import { updateContent, sectionTemplateSelector } from "@/store/documentSlice";
 
 const GettingStarted = ({ section }: TSectionProps) => {
   const dispatch = useAppDispatch();
-  const { register, handleSubmit, control } = useForm<TDownloadTemplate>({
-    defaultValues: template[section].default,
+  const template = useAppSelector((state) => sectionTemplateSelector(state, section));
+
+  const { register, handleSubmit, control, reset } = useForm<TDownloadTemplate>({
+    defaultValues: template?.default,
     mode: "onBlur",
   });
   const { fields, append, remove } = useFieldArray({
     name: "steps",
     control,
   });
+
   const onSubmit: SubmitHandler<TDownloadTemplate> = (data) => {
-    let literal = getLiteral({ section, props: data });
-    dispatch(updateContent({ sec: section, doc: literal }));
+    dispatch(updateContent({ section, formData: data }));
   };
+
+  useEffect(() => {
+    reset(template?.default);
+  }, [template?.default, reset]);
+
   return (
     <div className='collapse collapse-arrow bg-base-200'>
       <input type='checkbox' />
-      <div className='collapse-title text-lg font-medium'>{template[section].title}</div>
+      <div className='collapse-title text-lg font-medium'>{template?.title}</div>
       <div className='collapse-content bg-neutral-content'>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 py-4 px-2'>
           <TextArea

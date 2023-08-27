@@ -8,22 +8,24 @@ import {
 
 type GetLiteralProps = {
   section: string;
-  props: any;
+  data: any;
 };
 
-const getLiteral = ({ section, props }: GetLiteralProps) => {
+const getLiteral = ({ section, data }: GetLiteralProps) => {
   switch (section) {
     case "header": {
-      return HeaderTemplate(props);
+      return HeaderTemplate(data);
     }
     case "getting-started": {
-      return DownloadTemplate(props);
+      return DownloadTemplate(data);
     }
     case "tech": {
-      return TechTemplate(props);
+      return TechTemplate(data);
     }
+    case "toc":
+      return `<!-- Table Of Contents --> \n \n<!-- End of Table Of Contents -->`;
     default: {
-      return BasicLiteral(props);
+      return BasicLiteral(data);
     }
   }
 };
@@ -139,7 +141,7 @@ ${getBadges({ user, repo, templateNum })}
 
 export const BasicLiteral = (props: TBasicLiteral) => {
   const { description, title } = props;
-  return `\n## ${title} \n ${description} \n`;
+  return `\n## ${title} \n\n${description} \n`;
 };
 
 export const DownloadTemplate = (props: TDownloadTemplate) => {

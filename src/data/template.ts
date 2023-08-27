@@ -1,7 +1,7 @@
-import type { TTemplate } from "@/types";
+import { TSection } from "@/types";
 
-const template: TTemplate = {
-  header: {
+const template: TSection[] = [
+  {
     name: "header",
     title: "Header",
     default: {
@@ -12,7 +12,11 @@ const template: TTemplate = {
       logoURL: "https://raw.githubusercontent.com/Shuhua-L/READMEXpress/main/public/logo.png",
     },
   },
-  about: {
+  {
+    name: "toc",
+    title: "Table of Contents",
+  },
+  {
     name: "about",
     title: "About the Project",
     default: {
@@ -20,7 +24,16 @@ const template: TTemplate = {
 To get a local copy up and running follow these simple example steps.`,
     },
   },
-  "getting-started": {
+  {
+    name: "tech",
+    title: "Built With",
+    default: {
+      description:
+        "This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ones/plugins for the acknowledgements section. Here are a few examples.",
+      listStyle: "badge",
+    },
+  },
+  {
     name: "getting-started",
     title: "Getting Started",
     default: {
@@ -39,7 +52,7 @@ To get a local copy up and running follow these simple example steps.`,
       ],
     },
   },
-  usage: {
+  {
     name: "usage",
     title: "Usage",
     default: {
@@ -47,7 +60,7 @@ To get a local copy up and running follow these simple example steps.`,
         "Use this space to tell a little more about your project and how it can be used. Show additional screenshots, code samples, demos or link to other resources. ",
     },
   },
-  contributing: {
+  {
     name: "contributing",
     title: "Contributing",
     default: {
@@ -58,21 +71,6 @@ To get a local copy up and running follow these simple example steps.`,
         `,
     },
   },
-
-  tech: {
-    name: "tech",
-    title: "Built With",
-    default: {
-      description:
-        "This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ones/plugins for the acknowledgements section. Here are a few examples.",
-      listStyle: "badge",
-    },
-  },
-  empty: {
-    name: "",
-    title: "",
-    default: {},
-  },
-};
+];
 
 export default template;

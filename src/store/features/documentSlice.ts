@@ -1,54 +1,90 @@
 import generateTableOfContents from "@/utils/generateTOC";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "..";
+import getLiteral from "@/InputForms/Literals";
+import template from "@/data/template";
 
-export type content = {
-  [key: string]: string | undefined;
+export type TMap = {
+  [key: string]: any;
+};
+
+export type TSection = {
+  name: string;
+  title: string;
+  default?: TMap;
+  content?: string;
 };
 
 interface DocumentState {
-  sections: string[];
-  contents: content;
+  sections: TSection[];
   settings?: {
     showTOC?: boolean;
     showBOT?: boolean;
   };
-  document: string;
+  template: TSection[];
 }
 
 const initialState: DocumentState = {
-  sections: ["header", "about", "tech", "getting-started", "usage", "contributing"],
-  contents: {},
+  sections: [],
   settings: {
     showTOC: true,
   },
-  document: "",
+  template: [],
 };
+
+export const fetchTemplate = createAsyncThunk("template/fetch", async (thunkAPI) => {
+  const response = await fetch("/api/template", {
+    method: "GET",
+  });
+  const data = response.json();
+  return data;
+});
 
 export const DocumentSlice = createSlice({
   name: "document",
   initialState,
   reducers: {
-    addDocument: (state, action: PayloadAction<string>) => {
-      state.sections.push(action.payload);
-    },
     updateContent: (state, action: PayloadAction<{ sec: string; doc: string }>) => {
       const { sec, doc } = action.payload;
-      console.log({ sec, doc });
-      state.contents[sec] = doc;
+      let idx = state.sections.findIndex((section) => section.name === sec);
+      state.sections[idx].content = doc;
     },
-    getDocument: (state) => {
-      const { sections, contents, settings } = state;
-      let res = sections.filter((sec) => sec !== undefined).map((sec: string) => contents[sec]);
-      if (settings?.showTOC && Object.keys(contents).length > 0) {
-        res.splice(1, 0, generateTableOfContents(res.join("\n")));
-      }
-      state.document = res.join("\n");
-    },
-    setContents: (state, action: PayloadAction<content>) => {
-      state.contents = action.payload;
-    },
+    // updateTemplate: (state, action: PayloadAction<number>) => {
+    //   // const template = template
+    //   state.sections = template.map((sec: TSection) => {
+    //     let { name, title, default: defaultData } = sec;
+    //     let literalTemplate = getLiteral({
+    //       section: name,
+    //       props: { title, ...defaultData },
+    //     });
+    //     return { ...sec, content: literalTemplate };
+    //   });
+    // },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchTemplate.fulfilled, (state, action) => {
+      const template = action.payload.map((sec: TSection) => {
+        let { name, title, default: defaultData } = sec;
+        let literalTemplate = getLiteral({
+          section: name,
+          props: { title, ...defaultData },
+        });
+        return { ...sec, content: literalTemplate };
+      });
+      state.sections = template;
+    });
   },
 });
 
 export default DocumentSlice.reducer;
-export const { addDocument, updateContent, getDocument, setContents } = DocumentSlice.actions;
+export const { updateContent } = DocumentSlice.actions;
+
+const sections = (state: RootState) => state.document.sections;
+
+export const sectionTemplateSelector = createSelector(
+  [sections, (sections, sec: string) => sec],
+  (sections, sec) => {
+    let idx = sections.findIndex((section) => section.name === sec);
+    return sections[idx];
+  }
+);

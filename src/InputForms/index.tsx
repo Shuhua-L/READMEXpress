@@ -5,7 +5,7 @@ import Usage from "./Usage";
 import Contributing from "./Contributing";
 
 import dynamic from "next/dynamic";
-const Technologies = dynamic(() => import("./Technologies"));
+const Technologies = dynamic(() => import("./Technologies"), { ssr: false });
 
 const InputForms = () => {
   return (

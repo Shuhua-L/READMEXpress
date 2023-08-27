@@ -22,6 +22,8 @@ const getLiteral = ({ section, props }: GetLiteralProps) => {
     case "tech": {
       return TechTemplate(props);
     }
+    case "toc":
+      return `<!-- Table Of Contents --> \n \n<!-- End of Table Of Contents -->`;
     default: {
       return BasicLiteral(props);
     }
@@ -139,7 +141,7 @@ ${getBadges({ user, repo, templateNum })}
 
 export const BasicLiteral = (props: TBasicLiteral) => {
   const { description, title } = props;
-  return `\n## ${title} \n ${description} \n`;
+  return `\n## ${title} \n\n${description} \n`;
 };
 
 export const DownloadTemplate = (props: TDownloadTemplate) => {

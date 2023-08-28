@@ -2,10 +2,11 @@ import { createAsyncThunk, createSelector, createSlice, PayloadAction } from "@r
 import { RootState } from ".";
 import getLiteral from "@/utils/Literals";
 import { TSection } from "@/types";
+import generateTableOfContents from "@/utils/generateTOC";
 
 interface DocumentState {
   sections: TSection[];
-  settings?: {
+  settings: {
     showTOC?: boolean;
     showBOT?: boolean;
   };
@@ -16,6 +17,7 @@ const initialState: DocumentState = {
   sections: [],
   settings: {
     showTOC: true,
+    showBOT: false,
   },
   template: [],
 };
@@ -38,6 +40,12 @@ export const DocumentSlice = createSlice({
       let idx = state.sections.findIndex((sec) => sec.name === section);
       state.sections[idx].content = literal;
     },
+    toggleShowTOC: (state) => {
+      state.settings.showTOC = !state.settings.showTOC;
+    },
+    toggleShowBOT: (state) => {
+      state.settings.showBOT = !state.settings.showBOT;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchTemplate.fulfilled, (state, action) => {
@@ -55,9 +63,10 @@ export const DocumentSlice = createSlice({
 });
 
 export default DocumentSlice.reducer;
-export const { updateContent } = DocumentSlice.actions;
+export const { updateContent, toggleShowTOC, toggleShowBOT } = DocumentSlice.actions;
 
 const sections = (state: RootState) => state.document.sections;
+const settings = (state: RootState) => state.document.settings;
 
 export const sectionTemplateSelector = createSelector(
   [sections, (sections, sec: string) => sec],
@@ -66,3 +75,23 @@ export const sectionTemplateSelector = createSelector(
     return sections[idx];
   }
 );
+
+export const updatedDocument = createSelector([sections, settings], (sections, settings) => {
+  let res = sections
+    .map((section) => {
+      if (settings?.showBOT && section.name !== "header" && section.name !== "toc") {
+        return section.content?.concat(
+          `\n<p align="right">(<a href="#readme-top">back to top</a>)</p>\n`
+        );
+      }
+      return section.content;
+    })
+    .join("\n");
+  if (settings?.showBOT && sections.length > 0) {
+    res = `<a name="readme-top"></a>\n` + res;
+  }
+  if (settings?.showTOC && sections.length > 0) {
+    res = generateTableOfContents(res);
+  }
+  return res;
+});

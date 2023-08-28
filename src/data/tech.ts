@@ -389,6 +389,54 @@ const Tech = {
     logo: "laravel",
     logoColor: "white",
   },
+  MongoDB: {
+    slug: "mongodb",
+    badgeColor: "%2347A248",
+    logo: "mongodb",
+    logoColor: "white",
+  },
+  Redis: {
+    slug: "redis",
+    badgeColor: "%23DC382D",
+    logo: "redis",
+    logoColor: "white",
+  },
+  Docker: {
+    slug: "docker",
+    badgeColor: "%232496ED",
+    logo: "docker",
+    logoColor: "white",
+  },
+  Kubernetes: {
+    slug: "kubernetes",
+    badgeColor: "%23326CE5",
+    logo: "kubernetes",
+    logoColor: "white",
+  },
+  PostgreSQL: {
+    slug: "postgresql",
+    badgeColor: "%23336791",
+    logo: "postgresql",
+    logoColor: "white",
+  },
+  Elasticsearch: {
+    slug: "elasticsearch",
+    badgeColor: "%23005571",
+    logo: "elasticsearch",
+    logoColor: "white",
+  },
+  Jest: {
+    slug: "jest",
+    badgeColor: "%23C21325",
+    logo: "jest",
+    logoColor: "white",
+  },
+  Flask: {
+    slug: "flask",
+    badgeColor: "%23000",
+    logo: "flask",
+    logoColor: "white",
+  },
 };
 
 export default Tech;

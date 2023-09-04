@@ -4,12 +4,13 @@ import dynamic from "next/dynamic";
 const SimpleMdeReact = dynamic(() => import("react-simplemde-editor"), { ssr: false });
 import "easymde/dist/easymde.min.css";
 
-import { SaveButton } from "./MyComponents";
+import { ResetClearButtons, SaveButton } from "../FormComponents/MyComponents";
 import { options } from "@/components/Editor/EditorOptions";
 import type { TSectionProps, TBasicLiteral } from "@/types";
 
 import { useAppSelector, useAppDispatch } from "@/store";
 import { updateContent, sectionTemplateSelector } from "@/store/documentSlice";
+import CollapseForm from "../FormComponents/CollapseForm";
 
 const Usage = ({ section }: TSectionProps) => {
   const dispatch = useAppDispatch();
@@ -23,6 +24,9 @@ const Usage = ({ section }: TSectionProps) => {
     dispatch(updateContent({ section, formData: data }));
   };
 
+  const handleReset = () => resetField("description");
+  const handleClear = () => setValue("description", "");
+
   useEffect(() => {
     reset(template?.default);
   }, [template?.default, reset]);
@@ -30,37 +34,20 @@ const Usage = ({ section }: TSectionProps) => {
   const editorOptions = useMemo(options, []);
 
   return (
-    <div className='collapse collapse-arrow bg-base-200'>
-      <input type='checkbox' />
-      <div className='collapse-title text-lg font-medium'>{template?.title}</div>
-      <div className='collapse-content bg-neutral-content'>
-        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 py-4 px-2'>
-          <div>
-            <button
-              type='button'
-              className='btn btn-sm w-1/2'
-              onClick={() => resetField("description")}>
-              Reset
-            </button>
-            <button
-              type='button'
-              className='btn btn-sm w-1/2'
-              onClick={() => setValue("description", "")}>
-              Clear
-            </button>
-          </div>
-          <Controller
-            name='description'
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <SimpleMdeReact options={editorOptions} {...field} ref={null} className='shadow-lg' />
-            )}
-          />
-          <SaveButton />
-        </form>
-      </div>
-    </div>
+    <CollapseForm title={template?.title}>
+      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 py-4 px-2'>
+        <ResetClearButtons handleReset={handleReset} handleClear={handleClear} />
+        <Controller
+          name='description'
+          control={control}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <SimpleMdeReact options={editorOptions} {...field} ref={null} className='shadow-lg' />
+          )}
+        />
+        <SaveButton />
+      </form>
+    </CollapseForm>
   );
 };
 

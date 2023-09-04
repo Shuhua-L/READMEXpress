@@ -8,31 +8,27 @@ const SideBar = () => {
 
   return (
     <div>
-      <ul className='prose'>
-        <h3 className='text-center'>Current Document</h3>
-        <li>
-          <label className='label cursor-pointer'>
-            Include Table of Contents
-            <input
-              type='checkbox'
-              defaultChecked={settings.showTOC}
-              className='checkbox checkbox-accent'
-              onClick={() => dispatch(toggleShowTOC())}
-            />
-          </label>
-        </li>
-        <li>
-          <label className='label cursor-pointer'>
-            Include Back to Top
-            <input
-              type='checkbox'
-              defaultChecked={settings.showBOT}
-              className='checkbox checkbox-accent'
-              onClick={() => dispatch(toggleShowBOT())}
-            />
-          </label>
-        </li>
-      </ul>
+      <h3 className='text-center'>Current Document</h3>
+
+      <label className='label cursor-pointer'>
+        Include Table of Contents
+        <input
+          type='checkbox'
+          defaultChecked={settings.showTOC}
+          className='checkbox checkbox-accent'
+          onClick={() => dispatch(toggleShowTOC())}
+        />
+      </label>
+
+      <label className='label cursor-pointer'>
+        Include Back to Top
+        <input
+          type='checkbox'
+          defaultChecked={settings.showBOT}
+          className='checkbox checkbox-accent'
+          onClick={() => dispatch(toggleShowBOT())}
+        />
+      </label>
     </div>
   );
 };

@@ -7,17 +7,33 @@ import Contributing from "./Contributing";
 import dynamic from "next/dynamic";
 const Technologies = dynamic(() => import("./Technologies"), { ssr: false });
 
+import { useAppSelector } from "@/store";
+import { sectionKeySelector } from "@/store/documentSlice";
+
+const renderSection = (sectionKey: string) => {
+  switch (sectionKey) {
+    case "header":
+      return <Header section='header' key={sectionKey} />;
+    case "about":
+      return <About section='about' key={sectionKey} />;
+    case "tech":
+      return <Technologies section='tech' key={sectionKey} />;
+    case "getting-started":
+      return <GettingStarted section='getting-started' key={sectionKey} />;
+    case "usage":
+      return <Usage section='usage' key={sectionKey} />;
+    case "contributing":
+      return <Contributing section='contributing' key={sectionKey} />;
+
+    default:
+      break;
+  }
+};
+
 const InputForms = () => {
-  return (
-    <div>
-      <Header section='header' />
-      <About section='about' />
-      <Technologies section='tech' />
-      <GettingStarted section='getting-started' />
-      <Usage section='usage' />
-      <Contributing section='contributing' />
-    </div>
-  );
+  const sectionKeys = useAppSelector(sectionKeySelector);
+
+  return <div className='p-2'>{sectionKeys.map((sec) => renderSection(sec))}</div>;
 };
 
 export default InputForms;

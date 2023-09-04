@@ -95,3 +95,7 @@ export const updatedDocument = createSelector([sections, settings], (sections, s
   }
   return res;
 });
+
+export const sectionKeySelector = createSelector([sections], (sections) => {
+  return sections.map((sec) => sec.name);
+});

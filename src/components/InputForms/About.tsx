@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-import { SaveButton, TextArea } from "./MyComponents";
+import { SaveButton, TextArea } from "../FormComponents/MyComponents";
 import type { TSectionProps, TBasicLiteral } from "@/types";
 
 import { useAppSelector, useAppDispatch } from "@/store";
 import { updateContent, sectionTemplateSelector } from "@/store/documentSlice";
-import CollapseForm from "./CollapseForm";
+import CollapseForm from "../FormComponents/CollapseForm";
 
 const About = ({ section }: TSectionProps) => {
   const dispatch = useAppDispatch();

@@ -2,13 +2,13 @@ import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
 import { MdDeleteForever } from "react-icons/md";
 import { BiSolidAddToQueue } from "react-icons/bi";
 
-import { TextArea, SaveButton, CodeInput } from "./MyComponents";
+import { TextArea, SaveButton, CodeInput } from "../FormComponents/MyComponents";
 import type { TSectionProps, TDownloadTemplate } from "@/types";
 
 import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "@/store";
 import { updateContent, sectionTemplateSelector } from "@/store/documentSlice";
-import CollapseForm from "./CollapseForm";
+import CollapseForm from "../FormComponents/CollapseForm";
 
 const GettingStarted = ({ section }: TSectionProps) => {
   const dispatch = useAppDispatch();

@@ -1,13 +1,13 @@
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 
-import { TextArea, SaveButton } from "./MyComponents";
+import { TextArea, SaveButton } from "../FormComponents/MyComponents";
 import type { TSectionProps, TTechnologies } from "@/types";
 
 import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "@/store";
 import { updateContent, sectionTemplateSelector } from "@/store/documentSlice";
-import CollapseForm from "./CollapseForm";
-import MultiSelect from "./MultiSelect";
+import CollapseForm from "../FormComponents/CollapseForm";
+import MultiSelect from "../FormComponents/MultiSelect";
 
 const Technologies = ({ section }: TSectionProps) => {
   const dispatch = useAppDispatch();

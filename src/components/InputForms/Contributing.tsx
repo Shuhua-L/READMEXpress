@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 const SimpleMdeReact = dynamic(() => import("react-simplemde-editor"), { ssr: false });
 import "easymde/dist/easymde.min.css";
 
-import { SaveButton } from "../FormComponents/MyComponents";
+import { ResetClearButtons, SaveButton } from "../FormComponents/MyComponents";
 import { options } from "@/components/Editor/EditorOptions";
 import type { TSectionProps, TBasicLiteral } from "@/types";
 
@@ -26,6 +26,9 @@ const Contributing = ({ section }: TSectionProps) => {
     dispatch(updateContent({ section, formData: data }));
   };
 
+  const handleReset = () => resetField("description");
+  const handleClear = () => setValue("description", "");
+
   useEffect(() => {
     reset(template?.default);
   }, [template?.default, reset]);
@@ -35,20 +38,7 @@ const Contributing = ({ section }: TSectionProps) => {
   return (
     <CollapseForm title={template?.title}>
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 py-4 px-2'>
-        <div>
-          <button
-            type='button'
-            className='btn btn-sm w-1/2'
-            onClick={() => resetField("description")}>
-            Reset
-          </button>
-          <button
-            type='button'
-            className='btn btn-sm w-1/2'
-            onClick={() => setValue("description", "")}>
-            Clear
-          </button>
-        </div>
+        <ResetClearButtons handleReset={handleReset} handleClear={handleClear} />
         <Controller
           name='description'
           control={control}

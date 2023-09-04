@@ -1,6 +1,7 @@
 /* eslint-disable react/display-name */
 import {
   ButtonHTMLAttributes,
+  HTMLAttributes,
   InputHTMLAttributes,
   SelectHTMLAttributes,
   TextareaHTMLAttributes,
@@ -79,13 +80,42 @@ export const SaveButton = forwardRef<HTMLButtonElement, SaveButtonProps>((props,
   return (
     <button
       type='submit'
-      className={`btn btn-wide mx-auto btn-outline btn-neutral ${className}`}
+      className={`btn btn-wide mx-auto btn-outline btn-neutral dark:btn ${className}`}
       {...rest}
       ref={ref}>
       Save
     </button>
   );
 });
+
+interface ResetClearButtonsProps extends HTMLAttributes<HTMLDivElement> {
+  handleReset: () => void;
+  handleClear: () => void;
+  className?: string;
+}
+
+export const ResetClearButtons = forwardRef<HTMLDivElement, ResetClearButtonsProps>(
+  (props, ref) => {
+    const { handleReset, handleClear, className = "", ...rest } = props;
+
+    return (
+      <div ref={ref} {...rest}>
+        <button
+          type='button'
+          className='btn btn-sm w-1/2 btn-outline btn-neutral dark:btn dark:btn-sm '
+          onClick={handleReset}>
+          Reset
+        </button>
+        <button
+          type='button'
+          className='btn btn-sm w-1/2 btn-outline btn-neutral dark:btn dark:btn-sm'
+          onClick={handleClear}>
+          Clear
+        </button>
+      </div>
+    );
+  }
+);
 
 interface CodeProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;

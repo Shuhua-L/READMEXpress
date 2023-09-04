@@ -23,7 +23,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   return (
     <label className='block' htmlFor={name}>
       <span
-        className={`label-text ${
+        className={`text-sm ${
           required ? "after:content-['*'] after:ml-0.5 after:text-red-500" : ""
         }`}>
         {label}
@@ -33,7 +33,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         placeholder={placeholder}
         {...rest}
         ref={ref}
-        className={`input w-full ${className}`}
+        className={`input w-full input-bordered ${className}`}
       />
     </label>
   );
@@ -53,7 +53,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, r
   return (
     <label className='block' htmlFor={name}>
       <span
-        className={`label-text ${
+        className={`text-sm ${
           required ? "after:content-['*'] after:ml-0.5 after:text-red-500" : ""
         }`}>
         {label}
@@ -77,7 +77,11 @@ export const SaveButton = forwardRef<HTMLButtonElement, SaveButtonProps>((props,
   const { className = "", ...rest } = props;
 
   return (
-    <button type='submit' className={`btn btn-wide mx-auto ${className}`} {...rest} ref={ref}>
+    <button
+      type='submit'
+      className={`btn btn-wide mx-auto btn-outline btn-neutral ${className}`}
+      {...rest}
+      ref={ref}>
       Save
     </button>
   );
@@ -95,7 +99,7 @@ export const CodeInput = forwardRef<HTMLInputElement, CodeProps>((props, ref) =>
 
   return (
     <label className='block'>
-      <span className='label-text'>{label}</span>
+      <span className='text-sm'>{label}</span>
       <input
         name={name}
         placeholder={placeholder}

@@ -10,6 +10,7 @@ import type { TSectionProps, TBasicLiteral } from "@/types";
 
 import { useAppSelector, useAppDispatch } from "@/store";
 import { updateContent, sectionTemplateSelector } from "@/store/documentSlice";
+import CollapseForm from "./CollapseForm";
 
 const Contributing = ({ section }: TSectionProps) => {
   const dispatch = useAppDispatch();
@@ -32,37 +33,33 @@ const Contributing = ({ section }: TSectionProps) => {
   const editorOptions = useMemo(options, []);
 
   return (
-    <div className='collapse collapse-arrow bg-base-200'>
-      <input type='checkbox' />
-      <div className='collapse-title text-lg font-medium'>{template?.title}</div>
-      <div className='collapse-content bg-neutral-content'>
-        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 py-4 px-2'>
-          <div>
-            <button
-              type='button'
-              className='btn btn-sm w-1/2'
-              onClick={() => resetField("description")}>
-              Reset
-            </button>
-            <button
-              type='button'
-              className='btn btn-sm w-1/2'
-              onClick={() => setValue("description", "")}>
-              Clear
-            </button>
-          </div>
-          <Controller
-            name='description'
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <SimpleMdeReact options={editorOptions} {...field} ref={null} className='shadow-lg' />
-            )}
-          />
-          <SaveButton />
-        </form>
-      </div>
-    </div>
+    <CollapseForm title={template?.title}>
+      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 py-4 px-2'>
+        <div>
+          <button
+            type='button'
+            className='btn btn-sm w-1/2'
+            onClick={() => resetField("description")}>
+            Reset
+          </button>
+          <button
+            type='button'
+            className='btn btn-sm w-1/2'
+            onClick={() => setValue("description", "")}>
+            Clear
+          </button>
+        </div>
+        <Controller
+          name='description'
+          control={control}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <SimpleMdeReact options={editorOptions} {...field} ref={null} className='shadow-lg' />
+          )}
+        />
+        <SaveButton />
+      </form>
+    </CollapseForm>
   );
 };
 

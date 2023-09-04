@@ -9,7 +9,7 @@ const Technologies = dynamic(() => import("./Technologies"), { ssr: false });
 
 const InputForms = () => {
   return (
-    <div>
+    <div className='p-2'>
       <Header section='header' />
       <About section='about' />
       <Technologies section='tech' />

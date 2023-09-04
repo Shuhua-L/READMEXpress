@@ -20,13 +20,16 @@ export default function Home() {
   }, [dispatch]);
 
   return (
-    <div className='px-4 md:flex flex-auto'>
-      <div className='bg-neutral-content md:w-1/2 mb-[1vh] max-h-[92vh] min-h-[45vh] md:overflow-y-scroll'>
+    <div className='md:flex flex-auto'>
+      <div className=' md:w-1/2 mb-[1vh] max-h-[92vh] min-h-[45vh] md:overflow-y-scroll'>
         <InputForms />
       </div>
-      <div className='md:w-1/2 mb-[1vh] max-h-[92vh] min-h-[45vh] md:overflow-y-scroll p-2'>
+      <div className=' md:w-1/2 mb-[1vh] max-h-[92vh] min-h-[45vh] md:overflow-y-scroll'>
         <CopyClipboard />
-        <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]} className='prose'>
+        <ReactMarkdown
+          rehypePlugins={[rehypeRaw]}
+          remarkPlugins={[remarkGfm]}
+          className='prose p-2'>
           {document}
         </ReactMarkdown>
       </div>

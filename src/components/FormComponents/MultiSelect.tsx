@@ -1,24 +1,12 @@
-import React from "react";
+/* eslint-disable react/display-name */
+import React, { forwardRef } from "react";
 import AsyncSelect from "react-select/async";
 
 type MultiSelectProps = {
   watchStyle: string;
 };
 
-const valueContainerStyles = "gap-1 bg-base-100 ";
-const indicatorsContainerStyles = "gap-1 bg-base-100 text-base-content";
-const clearIndicatorStyles = "btn btn-sm btn-ghost";
-const indicatorSeparatorStyles = "bg-primary";
-const dropdownIndicatorStyles = "btn btn-sm btn-ghost";
-const multiValueRemoveStyles = "link link-accent p-0";
-const selectInputStyles = "pl-1 py-0.5 bg-base-100 !text-base-content";
-const optionStyles = `px-3 py-2 hover:cursor-pointer hover:bg-base-300 !active:bg-transparent focus:bg-transparent `;
-const placeholderStyles = "text-gray-500 pl-1 py-0.5";
-const multiValueStyles = " rounded items-center py-0.5 pl-2 pr-1 gap-1.5";
-const menuStyles = " mt-2 bg-base-100 border-2 border-base-100";
-const noOptionsMessageStyles = "p-2 bg-base-100 border border-line rounded-sm";
-
-const MultiSelect = (props: MultiSelectProps) => {
+const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>((props, ref) => {
   const { watchStyle, ...rest } = props;
 
   const fetchOptions = async (inputValue: string) => {
@@ -26,6 +14,19 @@ const MultiSelect = (props: MultiSelectProps) => {
     const data = await response.json();
     return data;
   };
+
+  const valueContainerStyles = "gap-1 bg-base-100 ";
+  const indicatorsContainerStyles = "gap-1 bg-base-100 text-base-content";
+  const clearIndicatorStyles = "btn btn-sm btn-ghost";
+  const indicatorSeparatorStyles = "bg-primary";
+  const dropdownIndicatorStyles = "btn btn-sm btn-ghost";
+  const multiValueRemoveStyles = "link link-accent p-0";
+  const selectInputStyles = "pl-1 py-0.5 bg-base-100 !text-base-content";
+  const optionStyles = `px-3 py-2 hover:cursor-pointer hover:bg-base-300 !active:bg-transparent focus:bg-transparent `;
+  const placeholderStyles = "text-gray-500 pl-1 py-0.5";
+  const multiValueStyles = " rounded items-center py-0.5 pl-2 pr-1 gap-1.5";
+  const menuStyles = " mt-2 bg-base-100 border-2 border-base-100";
+  const noOptionsMessageStyles = "p-2 bg-base-100 border border-line rounded-sm";
 
   return (
     <AsyncSelect
@@ -56,6 +57,6 @@ const MultiSelect = (props: MultiSelectProps) => {
       }}
     />
   );
-};
+});
 
 export default MultiSelect;

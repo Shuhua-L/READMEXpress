@@ -18,7 +18,7 @@ const Technologies = ({ section }: TSectionProps) => {
   });
 
   const onSubmit: SubmitHandler<TTechnologies> = (data) => {
-    console.log(data);
+    // console.log(data);
     dispatch(updateContent({ section, formData: data }));
   };
 

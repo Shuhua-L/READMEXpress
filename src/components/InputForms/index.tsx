@@ -10,20 +10,20 @@ const Technologies = dynamic(() => import("./Technologies"), { ssr: false });
 import { useAppSelector } from "@/store";
 import { sectionKeySelector } from "@/store/documentSlice";
 
-const renderSection = (sectionName: string) => {
-  switch (sectionName) {
+const renderSection = (sectionKey: string) => {
+  switch (sectionKey) {
     case "header":
-      return <Header section='header' />;
+      return <Header section='header' key={sectionKey} />;
     case "about":
-      return <About section='about' />;
+      return <About section='about' key={sectionKey} />;
     case "tech":
-      return <Technologies section='tech' />;
+      return <Technologies section='tech' key={sectionKey} />;
     case "getting-started":
-      return <GettingStarted section='getting-started' />;
+      return <GettingStarted section='getting-started' key={sectionKey} />;
     case "usage":
-      return <Usage section='usage' />;
+      return <Usage section='usage' key={sectionKey} />;
     case "contributing":
-      return <Contributing section='contributing' />;
+      return <Contributing section='contributing' key={sectionKey} />;
 
     default:
       break;

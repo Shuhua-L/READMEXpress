@@ -39,7 +39,7 @@ export type TMap = {
   [key: string]: any;
 };
 
-export type TSection = {
+export type TModule = {
   name: string;
   title: string;
   default?: TMap;

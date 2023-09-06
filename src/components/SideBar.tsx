@@ -14,9 +14,9 @@ const SideBar = () => {
         Include Table of Contents
         <input
           type='checkbox'
-          defaultChecked={settings.showTOC}
+          checked={settings.showTOC}
           className='checkbox checkbox-accent'
-          onClick={() => dispatch(toggleShowTOC())}
+          onChange={() => dispatch(toggleShowTOC())}
         />
       </label>
 
@@ -24,9 +24,9 @@ const SideBar = () => {
         Include Back to Top
         <input
           type='checkbox'
-          defaultChecked={settings.showBOT}
+          checked={settings.showBOT}
           className='checkbox checkbox-accent'
-          onClick={() => dispatch(toggleShowBOT())}
+          onChange={() => dispatch(toggleShowBOT())}
         />
       </label>
     </div>

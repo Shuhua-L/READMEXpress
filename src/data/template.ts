@@ -1,6 +1,6 @@
-import { TSection } from "@/types";
+import { TModule } from "@/types";
 
-const template: TSection[] = [
+const template: TModule[] = [
   {
     name: "header",
     title: "Header",

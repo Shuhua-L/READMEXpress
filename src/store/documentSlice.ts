@@ -46,9 +46,13 @@ export const DocumentSlice = createSlice({
       state.modules[section].content = literal;
     },
     toggleShowTOC: (state) => {
+      if (state.settings.showTOC) {
+        state.sections = state.sections.filter((sec) => sec !== "toc");
+      } else {
+        const index = state.sections[0] === "header" ? 1 : 0;
+        state.sections.splice(index, 0, "toc");
+      }
       state.settings.showTOC = !state.settings.showTOC;
-      const index = state.sections[0] === "header" ? 1 : 0;
-      state.sections.splice(index, 0, "toc");
     },
     toggleShowBOT: (state) => {
       state.settings.showBOT = !state.settings.showBOT;

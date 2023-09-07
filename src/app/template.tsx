@@ -14,7 +14,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
       </div>
       <div className='drawer-side z-10'>
         <label htmlFor='my-drawer-menu' className='drawer-overlay'></label>
-        <div className='menu p-4 w-80 h-full bg-neutral text-neutral-content'>
+        <div className='h-full w-80 p-4 bg-neutral text-neutral-content'>
           {/* Sidebar content here */}
           <SideBar />
         </div>

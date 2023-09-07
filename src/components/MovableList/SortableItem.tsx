@@ -22,20 +22,20 @@ export function SortableItem({ children, id, onRemove }: PropsWithChildren<Props
 
   return (
     <li
-      className='flex justify-between grow items-center bg-white shadow-[0_0_0_calc(1px_/_var(--scale-x,1))_rgba(63,63,68,0.05),0_1px_calc(3px_/_var(--scale-x,1))_0_rgba(34,33,81,0.15)] rounded-[calc(4px_/_var(--scale-x,1))] box-border text-[#333] font-normal text-base px-5 py-[18px];'
+      className='flex flex-row items-center bg-neutral-100 text-neutral-focus rounded-md p-1'
       ref={setNodeRef}
       style={style}>
       <button
-        className='flex w-3 items-center justify-center flex-[0_0_auto] touch-none cursor-[var(--cursor,pointer)] appearance-none bg-transparent p-[15px] rounded-[5px] border-[none] hover:bg-[rgba(0,0,0,0.05)] focus-visible:shadow-[0_0px_0px_2px_#4c9ffe];'
+        className='btn btn-sm w-7 bg-transparent border-none touch-none appearance-none text-opacity-60'
         {...attributes}
         {...listeners}>
-        <MdDragIndicator className='flex-[0_0_auto] h-full overflow-visible fill-[#919eab] m-auto' />
+        <MdDragIndicator className='w-5 h-full overflow-visible m-auto fill' />
       </button>
-      {children}
+      <div className='flex flex-[8]'>{children}</div>
       <button
-        className='flex w-3 items-center justify-center flex-[0_0_auto] touch-none cursor-[var(--cursor,pointer)] appearance-none bg-transparent p-[15px] rounded-[5px] border-[none] hover:bg-[rgba(0,0,0,0.05)] focus-visible:shadow-[0_0px_0px_2px_#4c9ffe];'
+        className='btn btn-sm w-7 bg-transparent border-none touch-none appearance-none text-opacity-60'
         onClick={onRemove}>
-        <MdDeleteForever className='#flex-[0_0_auto] h-full overflow-visible fill-[#919eab] m-auto' />
+        <MdDeleteForever className='h-full w-5 overflow-visible m-auto' />
       </button>
     </li>
   );

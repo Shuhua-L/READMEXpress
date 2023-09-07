@@ -34,18 +34,7 @@ const renderSection = (sectionKey: string) => {
 const InputForms = () => {
   const sections = useAppSelector((state) => state.document.sections);
 
-  return (
-    <div className='p-2'>
-      {sections.map((sec) => renderSection(sec))}
-      <div>
-        <CollapseForm title='TEST'>
-          <div className='p-4'>
-            <MovableList />
-          </div>
-        </CollapseForm>
-      </div>
-    </div>
-  );
+  return <div className='p-2'>{sections.map((sec) => renderSection(sec))}</div>;
 };
 
 export default InputForms;

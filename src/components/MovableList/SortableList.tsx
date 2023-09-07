@@ -88,7 +88,7 @@ export function MovableList<T extends TSection>() {
         setActive(null);
       }}>
       <SortableContext items={sections}>
-        <ul className='flex flex-col gap-2.5 p-0' role='application'>
+        <ul className='flex flex-col gap-2.5' role='application'>
           {sections.map((item) => (
             <Fragment key={item.id}>{renderSection(item)}</Fragment>
           ))}

@@ -1,6 +1,7 @@
 "use client";
 import { useAppSelector, useAppDispatch } from "@/store";
 import { toggleShowTOC, toggleShowBOT } from "@/store/documentSlice";
+import { MovableList } from "./MovableList/SortableList";
 
 const SideBar = () => {
   const dispatch = useAppDispatch();
@@ -8,27 +9,30 @@ const SideBar = () => {
 
   return (
     <div>
-      <h3 className='text-center'>Current Document</h3>
+      <h3 className='text-lg text-center p-2'>Current Document</h3>
 
-      <label className='label cursor-pointer'>
+      <label className='label cursor-pointer text-sm'>
         Include Table of Contents
         <input
           type='checkbox'
-          defaultChecked={settings.showTOC}
+          checked={settings.showTOC}
           className='checkbox checkbox-accent'
-          onClick={() => dispatch(toggleShowTOC())}
+          onChange={() => dispatch(toggleShowTOC())}
         />
       </label>
 
-      <label className='label cursor-pointer'>
+      <label className='label cursor-pointer text-sm'>
         Include Back to Top
         <input
           type='checkbox'
-          defaultChecked={settings.showBOT}
+          checked={settings.showBOT}
           className='checkbox checkbox-accent'
-          onClick={() => dispatch(toggleShowBOT())}
+          onChange={() => dispatch(toggleShowBOT())}
         />
       </label>
+
+      <h3 className='text-lg text-center mt-6 p-2'>Modules</h3>
+      <MovableList />
     </div>
   );
 };

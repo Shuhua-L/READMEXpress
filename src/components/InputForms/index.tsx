@@ -8,7 +8,8 @@ import dynamic from "next/dynamic";
 const Technologies = dynamic(() => import("./Technologies"), { ssr: false });
 
 import { useAppSelector } from "@/store";
-import { sectionKeySelector } from "@/store/documentSlice";
+import CollapseForm from "../FormComponents/CollapseForm";
+import { MovableList } from "../MovableList/SortableList";
 
 const renderSection = (sectionKey: string) => {
   switch (sectionKey) {
@@ -31,9 +32,9 @@ const renderSection = (sectionKey: string) => {
 };
 
 const InputForms = () => {
-  const sectionKeys = useAppSelector(sectionKeySelector);
+  const sections = useAppSelector((state) => state.document.sections);
 
-  return <div className='p-2'>{sectionKeys.map((sec) => renderSection(sec))}</div>;
+  return <div className='p-2'>{sections.map((sec) => renderSection(sec))}</div>;
 };
 
 export default InputForms;
